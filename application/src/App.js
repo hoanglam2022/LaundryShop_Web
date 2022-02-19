@@ -1,27 +1,19 @@
 import React, {Component} from 'react';
 import store from './common/store';
-import history from './common/historyCommon';
+import historyCommon from './common/historyCommon';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from "connected-react-router";
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
+import AllRoutes from './routes'
 import './styles/index.scss';
 
 class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <ConnectedRouter history={history}>
+                <ConnectedRouter history={historyCommon}>
                     <BrowserRouter>
-                        <Routes>
-                            <Route path='/' exact={true} element={<div>
-                                tuantest
-                            </div>}>
-                            </Route>
-                        </Routes>
+                        <AllRoutes/>
                     </BrowserRouter>
                 </ConnectedRouter>
             </Provider>

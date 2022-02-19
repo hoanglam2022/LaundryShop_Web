@@ -1,6 +1,6 @@
 import {createBrowserHistory} from 'history';
 
 // A singleton history object for easy API navigation
-const history = createBrowserHistory();
+const historyCommon = createBrowserHistory();
 //const history = createBrowserHistory({ basename: '/admin });
-export default history;
+export default historyCommon;

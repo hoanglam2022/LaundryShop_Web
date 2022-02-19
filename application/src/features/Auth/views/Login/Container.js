@@ -15,7 +15,7 @@ class Container extends Component {
 
         if (id !== null && id !== undefined) {
             return (
-                <Navigate to={"/users/" + auth.username}/>
+                <Navigate to={"/products/" + auth.username}/>
             )
         }
 

@@ -11,6 +11,8 @@ import {
 const env = require('../../../config/env')
 
 export function login(data) {
+
+    console.log(process.env)
     const url = env.API_URL + 'auth/get-token'
     return dispatch => {
         return post(dispatch, url, data, {}, setTokenAction)

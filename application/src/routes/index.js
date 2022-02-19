@@ -1,20 +1,27 @@
 import React, {Component} from "react"
-import {Routes} from "react-router-dom"
-/*import {PublicRoute} from './PublicRoute'
+import {Route, Routes} from "react-router-dom"
+import {PublicRoute} from './PublicRoute'
 import {PrivateRoute} from './PrivateRoute'
-import {HomePage, ContactPage, AboutPage} from '../features/Home'
-import {UserDetail} from '../features/Users'
 import {Login, Register} from '../features/Auth'
-import {ErrorPage} from "../features/Exceptions";*/
+import {ErrorPage} from "../features/Exceptions";
+
+import {
+    Index as ProductIndex,
+    Detail as ProductDetail,
+} from '../features/Product'
 
 class AllRoutes extends Component {
     render() {
-        const rules = [
-            'admin'
-        ];
         return (
             <Routes>
-                <div>tuantest</div>
+                <Route>
+                    <Route path='login' element={<PublicRoute layout='Auth'><Login/></PublicRoute>}/>
+
+                    <Route path='products' element={<PrivateRoute><ProductIndex/></PrivateRoute>}/>
+                    <Route index path="products/:id" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
+
+                    <Route index path="*" element={<PublicRoute><ErrorPage code={404}/></PublicRoute>}/>
+                </Route>
                 {/*<PublicRoute path="/login" layout='Auth'>
                     <Login/>
                 </PublicRoute>
@@ -38,11 +45,9 @@ class AllRoutes extends Component {
 
                 <PublicRoute path="/users/:id" layout='App' exact={true}>
                     <UserDetail/>
-                </PublicRoute>
-
-                <PublicRoute path="*">
-                    <ErrorPage code={404}/>
                 </PublicRoute>*/}
+
+
             </Routes>
         );
     }

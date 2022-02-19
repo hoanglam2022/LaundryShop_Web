@@ -2,71 +2,56 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {Logo} from "../Logo";
 import {Menu, Dropdown} from 'antd';
-import {Avatar} from 'antd';
 import img_user from "../../images/users/user.png"
+import {UserOutlined, SettingOutlined, LogoutOutlined} from '@ant-design/icons';
+import {AntAvatar} from "../AntAvatar";
 
 class President extends Component {
     render() {
-        let pathName          = this.props.router.location.pathname
-        const classItem       = "menu-item";
-        const classItemActive = "menu-item active";
-        const classHeader     = this.props.isTransparent === true ? "header transparent" : "header";
-
         // Auth
-        const auth          = this.props.auth;
-        const authenticated = auth.id !== undefined && auth.id !== null;
+        const auth      = this.props.auth;
+        const {user}    = auth;
+        const full_name = user.first_name + ' ' + user.last_name;
 
         return (
-            <header className={classHeader}>
-                <div className="header-content">
-                    <div className="header-logo">
-                        <Logo/>
+            <header className="page-header">
+                <div className="page-header-content">
+                    <div className="logo">
+                        <Link to="/">
+                            <Logo/>
+                        </Link>
                     </div>
-                    <div className="header-menu">
-                        <ul className="menu-content">
-                            <li className={pathName === "/" ? classItemActive : classItem}>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li className={pathName === "/contact" ? classItemActive : classItem}>
-                                <Link to="/contact">Contact</Link>
-                            </li>
-                            <li className={pathName === "/about" ? classItemActive : classItem}>
-                                <Link to="/about">About</Link>
-                            </li>
-                        </ul>
+                    <div className="page-header-space"/>
+                    <div className="page-header-control">
+                        <div className="page-header-item">
+                            <Dropdown className="page-header-menu" overlay={
+                                <Menu>
+                                    <Menu.Item className="page-header-menu-item" key={1} onClick={() => {
+                                        this.props.handleLogout()
+                                    }}>
+                                        <UserOutlined/>Thông tin
+                                    </Menu.Item>
+                                    <Menu.Item className="page-header-menu-item" key={2} onClick={() => {
+                                        this.props.handleLogout()
+                                    }}>
+                                        <SettingOutlined/>Cài đặt
+                                    </Menu.Item>
+                                    <Menu.Divider/>
+                                    <Menu.Item className="page-header-menu-item" key={3} onClick={() => {
+                                        this.props.handleLogout()
+                                    }}>
+                                        <LogoutOutlined/>Đăng xuất
+                                    </Menu.Item>
+                                </Menu>
+                            }>
+                                <a onClick={e => e.preventDefault()}>
+                                    <AntAvatar className="page-header-avatar" icon={<UserOutlined/>} size="small"
+                                               src={img_user}/>
+                                    <span className="page-header-title">{full_name}</span>
+                                </a>
+                            </Dropdown>
+                        </div>
                     </div>
-
-                    <div className="header-menu auth-menu">
-                        {
-                            authenticated ?
-                                (
-                                    <Dropdown className="menu-content" overlay={
-                                        <Menu>
-                                            <Menu.Item onClick={() => {
-                                                this.props.handleLogout()
-                                            }}>
-                                                Logout
-                                            </Menu.Item>
-                                        </Menu>
-                                    }>
-                                        <Link to={'/users/' + auth.username}>
-                                            <Avatar className="avatar" src={img_user}/>
-                                            <span className="full-name">{auth.full_name}</span>
-                                        </Link>
-                                    </Dropdown>
-                                )
-                                :
-                                <ul className="menu-content">
-                                    <li className="menu-item">
-                                        <Link to='/login'>Login</Link>
-                                    </li>
-                                    <li className="menu-item">
-                                        <Link to="/register">Register</Link>
-                                    </li>
-                                </ul>
-                        }
-                    </div>
-
                 </div>
             </header>
         )

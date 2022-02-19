@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {App} from "../../layouts/App";
-import {Navigate, Route} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {connect} from "react-redux";
+import {Auth} from "../../layouts/Auth";
 
 class Container extends Component {
     render() {
         const auth = this.props.auth;
-        const id = auth.id;
+        const user = auth.user;
         const role = auth.role;
 
         // Check auth
-        if (id === null || id === undefined) {
+        if (user.username === null || user.username === undefined) {
             return (
                 <Navigate to="/login"/>
             )
@@ -25,13 +26,15 @@ class Container extends Component {
             )
         }
 
-        let component = null;
+        let component;
         switch (this.props.layout) {
-            case 'App':
+            case 'Auth':
+                component = <Auth>{this.props.children}</Auth>
+                break;
+            default:
                 component = <App>{this.props.children}</App>
                 break;
         }
-
         return component;
     }
 }

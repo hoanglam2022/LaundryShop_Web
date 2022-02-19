@@ -8,12 +8,10 @@ import {
     CODE_SUCCESS
 } from "../../../common/crud";
 
-const env = require('../../../config/env')
+import helpers from "../../../ultis/helpers";
 
 export function login(data) {
-
-    console.log(process.env)
-    const url = env.API_URL + 'auth/get-token'
+    const url = helpers.getEndPointAPI() + 'auth/admin/tokens/create'
     return dispatch => {
         return post(dispatch, url, data, {}, setTokenAction)
     }
@@ -21,7 +19,10 @@ export function login(data) {
 
 export function setTokenAction(dispatch, data) {
     if (data.code === CODE_SUCCESS) {
-        localStorage.setItem(ARG_TOKEN, JSON.stringify(data.data))
+        localStorage.setItem(ARG_TOKEN, JSON.stringify(data))
+    }
+    else {
+        console.log(data)
     }
     return {
         type   : SET_TOKEN_ACTION,
@@ -44,7 +45,7 @@ export function clearTokenAction() {
 }
 
 export function register(data) {
-    const url = env.API_URL + 'users/insert'
+    const url = process.env.REACT_APP_API_ENDPOINT + 'users/insert'
     return dispatch => {
         return post(dispatch, url, data, {})
     }

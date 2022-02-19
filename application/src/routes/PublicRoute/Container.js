@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 class Container extends Component {
 
     render() {
-        let component = null;
+        let component;
         switch (this.props.layout) {
             case 'Auth':
                 component = <Auth>{this.props.children}</Auth>

@@ -21,24 +21,42 @@ export function reducer(state = initialState, action) {
 function loadStateFromLocal() {
     let stateFromLocal;
     try {
-        let payload    = JSON.parse(localStorage.getItem(ARG_TOKEN));
+        // Load data from local
+        let data = JSON.parse(localStorage.getItem(ARG_TOKEN));
+
+        // Load data auth
+        const {payload, meta, role} = data
+
         stateFromLocal = {
-            id       : payload.id,
-            username : payload.username,
-            full_name: payload.full_name,
-            token    : payload.token,
-            role     : payload.role,
-            message  : null,
+            user: {
+                username    : payload.username,
+                first_name  : payload.first_name,
+                last_name   : payload.last_name,
+                email       : payload.email,
+                phone_number: payload.phone_number,
+                created_user: payload.created_user,
+            },
+            meta: {
+                token: meta.token
+            },
+            role: role
         }
+
     } catch (e) {
         localStorage.removeItem(ARG_TOKEN)
         stateFromLocal = {
-            id       : null,
-            username : null,
-            full_name: null,
-            token    : null,
-            role     : null,
-            message  : null,
+            user: {
+                username    : null,
+                first_name  : null,
+                last_name   : null,
+                email       : null,
+                phone_number: null,
+                created_user: null,
+            },
+            meta: {
+                token: null
+            },
+            role: null
         }
     }
     return stateFromLocal;

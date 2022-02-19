@@ -12,11 +12,11 @@ class President extends Component {
                         <div className="antd-pro-layouts-user-layout-header">
                             <Link to="/">
                                 <img alt="" className="antd-pro-layouts-user-layout-logo" src={logo}/>
-                                <span className="antd-pro-layouts-user-layout-title">SSC MIX</span>
+                                <span className="antd-pro-layouts-user-layout-title">Laundry Shop</span>
                             </Link>
                         </div>
                         <div className="antd-pro-layouts-user-layout-desc">
-                            Ant Design 是西湖区最具影响力的 Web 设计规范
+                            Đăng nhập - Quản trị viên
                         </div>
                     </div>
                     <div className="antd-pro-pages-user-login-index-main">

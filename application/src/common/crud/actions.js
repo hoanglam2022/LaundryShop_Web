@@ -88,7 +88,7 @@ export function reject(dispatch, reason, callback) {
 function responseAction(response) {
     const data    = response.data
     const payload = {
-        data      : data.data,
+        data      : data.payload,
         code      : data.code,
         message   : data.message,
         errors    : data.errors,

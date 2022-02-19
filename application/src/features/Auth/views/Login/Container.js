@@ -6,16 +6,19 @@ import {login} from "../../redux/actions";
 
 class Container extends Component {
     handleLogin = (data) => {
-        this.props.login(data)
+        this.props.login({
+            username: data.username !== undefined ? data.username : '',
+            password: data.password !== undefined ? data.password : '',
+        })
     }
 
     render() {
         const auth = this.props.auth;
-        const id   = auth.id;
+        const user = auth.user;
 
-        if (id !== null && id !== undefined) {
+        if (user.username !== null && user.username !== undefined) {
             return (
-                <Navigate to={"/products/" + auth.username}/>
+                <Navigate to={"/"}/>
             )
         }
 

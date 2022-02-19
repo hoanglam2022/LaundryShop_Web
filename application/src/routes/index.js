@@ -2,6 +2,8 @@ import React, {Component} from "react"
 import {Route, Routes} from "react-router-dom"
 import {PublicRoute} from './PublicRoute'
 import {PrivateRoute} from './PrivateRoute'
+
+import {HomePage} from '../features/Home'
 import {Login, Register} from '../features/Auth'
 import {ErrorPage} from "../features/Exceptions";
 
@@ -15,7 +17,10 @@ class AllRoutes extends Component {
         return (
             <Routes>
                 <Route>
+                    <Route path='/' element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+
                     <Route path='login' element={<PublicRoute layout='Auth'><Login/></PublicRoute>}/>
+                    <Route path='register' element={<PublicRoute layout='Auth'><Register/></PublicRoute>}/>
 
                     <Route path='products' element={<PrivateRoute><ProductIndex/></PrivateRoute>}/>
                     <Route index path="products/:id" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>

@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Routes as RoutesDom} from "react-router-dom"
+import {Routes} from "react-router-dom"
 /*import {PublicRoute} from './PublicRoute'
 import {PrivateRoute} from './PrivateRoute'
 import {HomePage, ContactPage, AboutPage} from '../features/Home'
@@ -7,13 +7,14 @@ import {UserDetail} from '../features/Users'
 import {Login, Register} from '../features/Auth'
 import {ErrorPage} from "../features/Exceptions";*/
 
-class Routes extends Component {
+class AllRoutes extends Component {
     render() {
         const rules = [
             'admin'
         ];
         return (
-            <RoutesDom>
+            <Routes>
+                <div>tuantest</div>
                 {/*<PublicRoute path="/login" layout='Auth'>
                     <Login/>
                 </PublicRoute>
@@ -42,10 +43,10 @@ class Routes extends Component {
                 <PublicRoute path="*">
                     <ErrorPage code={404}/>
                 </PublicRoute>*/}
-            </RoutesDom>
+            </Routes>
         );
     }
 
 }
 
-export default Routes
+export default AllRoutes

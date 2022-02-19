@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 class Container extends Component {
 
     render() {
+
         let component = null;
         switch (this.props.layout) {
             case 'App':
@@ -18,6 +19,7 @@ class Container extends Component {
             default:
                 break;
         }
+        return <Route path={'/'} exact>{component}</Route>
 
         return this.props.exact ?
             (<Route path={this.props.path} exact>{component}</Route>)

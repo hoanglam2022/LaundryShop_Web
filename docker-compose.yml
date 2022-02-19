@@ -5,11 +5,11 @@ services:
     build:
       context: ./services/node
       dockerfile: Dockerfile
-    container_name: laundryshop_admin_node
+    container_name: admin_node
     restart: unless-stopped
     tty: true
-    #ports:
-    #  - "80:3000"
+    ports:
+      - "3000:3000"
     #command: "npm run start"
     volumes:
       - ./application/:/app
@@ -21,7 +21,7 @@ services:
     build:
       context: ./services/nginx
       dockerfile: Dockerfile
-    container_name: laundryshop_admin_nginx
+    container_name: admin_nginx
     restart: unless-stopped
     tty: true
     ports:

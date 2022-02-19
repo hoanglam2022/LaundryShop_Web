@@ -18,7 +18,7 @@ export function reducer(state = initialState, action) {
     }
 }
 
-function loadStateFromLocal() {
+export function loadStateFromLocal() {
     let stateFromLocal;
     try {
         // Load data from local

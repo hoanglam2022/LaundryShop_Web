@@ -21,9 +21,6 @@ export function setTokenAction(dispatch, data) {
     if (data.code === CODE_SUCCESS) {
         localStorage.setItem(ARG_TOKEN, JSON.stringify(data))
     }
-    else {
-        console.log(data)
-    }
     return {
         type   : SET_TOKEN_ACTION,
         payload: null

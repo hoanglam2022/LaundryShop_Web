@@ -23,7 +23,8 @@ class AllRoutes extends Component {
                     <Route path='register' element={<PublicRoute layout='Auth'><Register/></PublicRoute>}/>
 
                     <Route path='products' element={<PrivateRoute><ProductIndex/></PrivateRoute>}/>
-                    <Route index path="products/:id" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
+                    <Route index path="products/create" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
+                    <Route index path="products/detail/:id" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
 
                     <Route index path="*" element={<PublicRoute><ErrorPage code={404}/></PublicRoute>}/>
                 </Route>

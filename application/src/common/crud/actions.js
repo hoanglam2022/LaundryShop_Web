@@ -1,6 +1,8 @@
 import axios from "axios";
 import {RESPONSE_ACTION, RESET_ACTION, PENDING_ACTION} from './constants'
-import {clearToken} from "../../features/Auth/redux/actions";
+import {clearToken, setTokenAction} from "../../features/Auth/redux/actions";
+import {loadStateFromLocal} from "../../features/Auth/redux/reducer";
+import helpers from "../../ultis/helpers";
 
 export const CODE_BAD_REQUEST     = 400;
 export const CODE_NOT_FOUND       = 404;
@@ -30,6 +32,58 @@ export function pendingAction() {
     };
 }
 
+function generateUrl(endPoint) {
+    return helpers.getEndPointAPI() + endPoint;
+}
+
+function applyToken(config) {
+    const state = loadStateFromLocal();
+    config      = {};
+    if (state.meta.token !== null) {
+        config = {
+            headers: {Authorization: `Bearer ${state.meta.token}`}
+        }
+    }
+
+    return config
+}
+
+function applyQueryString(url, params) {
+    const queryString = new URLSearchParams(params).toString();
+    url               = url + '?' + queryString;
+    url               = url.replace('/?', '?')
+    return url;
+}
+
+export function fetchPaginate(url, params = {}) {
+    const {pagination} = params
+    const sort         = params.sortOrder !== undefined ? params.sortOrder : "ascend";
+    params             = {
+        sort : params.sortField !== undefined ? params.sortField : 'id',
+        order: sort === "ascend" ? 'ASC' : 'DESC',
+        page : pagination !== undefined ? pagination.current : 1,
+    }
+
+    return dispatch => {
+        dispatch(apiGet(url, params))
+    }
+}
+
+export function apiGet(endPoint = '', params = {}, config = {}, callback = null) {
+    let url = generateUrl(endPoint)
+    url     = applyQueryString(url, params);
+    config  = applyToken();
+
+    return dispatch => {
+        dispatch(pendingAction())
+        return axios.get(url, config).then(response => {
+            resolve(dispatch, response, callback)
+        }).catch(reason => {
+            reject(dispatch, reason, callback)
+        });
+    }
+}
+
 export function get(dispatch, url = '', data = {}, config = {}, callback = null) {
     dispatch(pendingAction())
     return axios.get(url, config).then(response => {
@@ -56,15 +110,15 @@ export function resolve(dispatch, response, callback) {
 }
 
 export function reject(dispatch, reason, callback) {
-
-    const data     = {
-        data      : null,
+    const data = {
+        payload   : [],
         code      : null,
         message   : MESSAGE_SERVER_ERROR,
         errors    : {},
         status    : CODE_SERVER_ERROR,
         statusText: MESSAGE_SERVER_ERROR,
     };
+
     const response = {
         data: {
             ...data
@@ -86,9 +140,10 @@ export function reject(dispatch, reason, callback) {
 }
 
 function responseAction(response) {
-    const data    = response.data
+    const data = response.data
+
     const payload = {
-        data      : data.payload,
+        payload   : data.payload !== undefined ? data.payload : [],
         code      : data.code,
         message   : data.message,
         errors    : data.errors,

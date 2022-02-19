@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import Header from '../Header'
-import Slider from "../Slider";
-import Footer from '../Footer'
 
 import {Layout} from 'antd';
+import {Header, Slider} from "../index";
 
 class President extends Component {
     render() {

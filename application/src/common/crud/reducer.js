@@ -11,12 +11,12 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 ...initialState,
-                pending: false
+                loading: false
             };
         case PENDING_ACTION:
             return {
                 ...state,
-                pending: true
+                loading: true
             };
         case RESPONSE_ACTION:
             if (payload.status >= 400) {
@@ -26,7 +26,7 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 ...payload,
-                pending: false
+                loading: false
             };
         default:
             return state;

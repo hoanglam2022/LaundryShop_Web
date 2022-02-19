@@ -5,20 +5,19 @@ import {createMatchSelector} from "connected-react-router";
 
 class Container extends Component {
     render() {
-        const reducer     = this.props.user;
+        const reducer     = this.props.crud;
+        const product = reducer.payload
 
+        console.log('tuantest', product)
         return (
             <President
-
+                product={product}
             />
         )
     }
 
     componentDidMount() {
-        const auth       = this.props.auth;
-        const config     = {
-            headers: {Authorization: `Bearer ${auth.token}`}
-        }
+
 
     }
 }
@@ -33,6 +32,7 @@ function mapStateToProps(state) {
     const matchSelector = createMatchSelector("/users/:username");
     return {
         auth : state.auth,
+        crud : state.crud,
         match: matchSelector(state)
     }
 }

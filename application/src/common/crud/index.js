@@ -1,4 +1,5 @@
 export {
+    apiGet,
     get,
     post,
     reset,

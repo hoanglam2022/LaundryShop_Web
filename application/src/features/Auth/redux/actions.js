@@ -1,4 +1,5 @@
 import {
+    LOGIN_LOADING,
     SET_TOKEN_ACTION,
     CLEAR_TOKEN_ACTION,
     ARG_TOKEN,
@@ -8,16 +9,23 @@ import {
     CODE_SUCCESS
 } from "../../../common/crud";
 
-import helpers from "../../../ultis/helpers";
+import {apiPost} from "../../../common/crud/actions";
 
-export function login(data) {
-    const url = helpers.getEndPointAPI() + 'auth/admin/tokens/create'
+export function login(params) {
     return dispatch => {
-        return post(dispatch, url, data, {}, setTokenAction)
+        dispatch(loginLoadingAction())
+        dispatch(apiPost('auth/admin/tokens/create', params, {}, setTokenAction))
     }
 }
 
-export function setTokenAction(dispatch, data) {
+export function loginLoadingAction() {
+    return {
+        type   : LOGIN_LOADING,
+        payload: null
+    };
+}
+
+export function setTokenAction(data) {
     if (data.code === CODE_SUCCESS) {
         localStorage.setItem(ARG_TOKEN, JSON.stringify(data))
     }

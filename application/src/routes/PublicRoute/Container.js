@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {App} from "../../layouts/App";
 import {Auth} from "../../layouts/Auth";
 import {connect} from "react-redux";
+import {Route} from "react-router-dom";
 
 class Container extends Component {
 
@@ -16,10 +17,11 @@ class Container extends Component {
                 break;
         }
 
-        return component;
+        return this.props.exact ?
+            (<Route path={this.props.path} exact>{component}</Route>)
+            : (<Route path={this.props.path}>{component}</Route>)
     }
 }
-
 
 function mapStateToProps(state) {
     return {

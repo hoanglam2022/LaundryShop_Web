@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import President from './President';
 import {connect} from 'react-redux';
-import {apiGet} from "../../../../common/crud";
-import {fetchPaginate} from "../../../../common/crud/actions";
+import {fetchTableProduct} from "../../redux/actions";
 
 class Container extends Component {
     handleTableChange = (pagination, filters, sorter) => {
-        this.props.fetchPaginate('admin/products/', {
+        this.props.fetchTableProduct({
             sortField: sorter.field,
             sortOrder: sorter.order,
             pagination,
@@ -15,44 +14,27 @@ class Container extends Component {
     };
 
     render() {
-        const reducer = this.props.crud;
-        const payload = reducer.payload
-        const state   = {
-            data      : payload.data,
-            pagination: {
-                current : payload.current_page,
-                pageSize: payload.per_page,
-                total   : payload.total,
-            },
-            loading   : reducer.loading,
-        };
-
         return (
-            <President handleTableChanges={this.handleTableChange} {...state} />
+            <President handleTableChanges={this.handleTableChange} {...this.props.product.list} />
         )
     }
 
     componentDidMount() {
-        this.props.fetchPaginate('admin/products/');
+        this.props.fetchTableProduct({});
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        apiGet: (url, data) => {
-            dispatch(apiGet(url, data));
-        },
-
-        fetchPaginate: (url, data) => {
-            dispatch(fetchPaginate(url, data));
+        fetchTableProduct: (data) => {
+            dispatch(fetchTableProduct(data));
         },
     };
 }
 
 function mapStateToProps(state) {
     return {
-        auth: state.auth,
-        crud: state.crud,
+        product: state.product,
     }
 }
 

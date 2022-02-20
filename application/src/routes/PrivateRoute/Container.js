@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {App} from "../../layouts/App";
-import {Navigate} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import {connect} from "react-redux";
 import {Auth} from "../../layouts/Auth";
 
@@ -13,7 +13,7 @@ class Container extends Component {
         // Check auth
         if (user.username === null || user.username === undefined) {
             return (
-                <Navigate to="/login"/>
+                <Redirect to="/login"/>
             )
         }
 
@@ -22,7 +22,7 @@ class Container extends Component {
         const notAllow = (typeof roles) === "object" && roles.indexOf(role) === -1;
         if (notAllow) {
             return (
-                <Navigate to="/errors/403"/>
+                <Redirect to="/errors/403"/>
             )
         }
 
@@ -35,7 +35,10 @@ class Container extends Component {
                 component = <App>{this.props.children}</App>
                 break;
         }
-        return component;
+
+        return this.props.exact ?
+            (<Route path={this.props.path} exact>{component}</Route>)
+            : (<Route path={this.props.path}>{component}</Route>)
     }
 }
 

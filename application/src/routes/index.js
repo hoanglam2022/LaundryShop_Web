@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Route, Routes} from "react-router-dom"
+import {Route, Switch} from "react-router-dom"
 import {PublicRoute} from './PublicRoute'
 import {PrivateRoute} from './PrivateRoute'
 
@@ -15,19 +15,24 @@ import {
 class AllRoutes extends Component {
     render() {
         return (
-            <Routes>
-                <Route>
-                    <Route path='/' element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+            <Switch>
+                <PublicRoute path="/login" layout='Auth'><Login/></PublicRoute>
+                <PublicRoute path="/register" layout='Auth'><Register/></PublicRoute>
 
-                    <Route path='login' element={<PublicRoute layout='Auth'><Login/></PublicRoute>}/>
-                    <Route path='register' element={<PublicRoute layout='Auth'><Register/></PublicRoute>}/>
+                <PrivateRoute path="/" exact={true}><HomePage/></PrivateRoute>
+                <PrivateRoute path="/products" exact={true}><ProductIndex/></PrivateRoute>
+                <PrivateRoute path="/products/create" ><ProductDetail/></PrivateRoute>
+                <PrivateRoute path="/products/detail/:id" exact={true}><ProductDetail/></PrivateRoute>
 
-                    <Route path='products' element={<PrivateRoute><ProductIndex/></PrivateRoute>}/>
-                    <Route index path="products/create" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
-                    <Route index path="products/detail/:id" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
+                <PublicRoute path="*"><ErrorPage code={404}/></PublicRoute>
 
-                    <Route index path="*" element={<PublicRoute><ErrorPage code={404}/></PublicRoute>}/>
-                </Route>
+                {/* <Route path='/' element={<PrivateRoute><HomePage/></PrivateRoute>}/>
+
+                <Route path='products' element={<PrivateRoute><ProductIndex/></PrivateRoute>}/>
+                <Route index path="products/create" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
+                <Route index path="products/detail/:id" element={<PrivateRoute><ProductDetail/></PrivateRoute>}/>
+
+                <Route index path="*" element={<PublicRoute><ErrorPage code={404}/></PublicRoute>}/>*/}
                 {/*<PublicRoute path="/login" layout='Auth'>
                     <Login/>
                 </PublicRoute>
@@ -54,7 +59,7 @@ class AllRoutes extends Component {
                 </PublicRoute>*/}
 
 
-            </Routes>
+            </Switch>
         );
     }
 

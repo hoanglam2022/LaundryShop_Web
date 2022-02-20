@@ -7,7 +7,18 @@
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 
 const initialState = {
-    products: [],
+    list  : {
+        data      : [],
+        pagination: {
+            current : 1,
+            pageSize: 25,
+            total   : 0,
+        },
+        loading   : false,
+    },
+    create: {},
+    detail: {},
+    delete: {},
 };
 
 export default initialState;

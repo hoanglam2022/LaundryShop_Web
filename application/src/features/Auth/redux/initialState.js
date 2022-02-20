@@ -18,7 +18,10 @@ const initialState = {
     meta: {
         token: null
     },
-    role: null
+    role: null,
+    login:{
+        loading: false,
+    }
 };
 
 export default initialState;

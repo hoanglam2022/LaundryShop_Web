@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import President from './President';
 import {connect} from 'react-redux';
-import {Navigate} from "react-router-dom"
+import {Redirect} from "react-router-dom"
 import {login} from "../../redux/actions";
 
 class Container extends Component {
@@ -18,12 +18,13 @@ class Container extends Component {
 
         if (user.username !== null && user.username !== undefined) {
             return (
-                <Navigate to={"/"}/>
+                <Redirect to={"/"}/>
             )
         }
 
         return (<President
             crud={this.props.crud}
+            loading={this.props.auth.login.loading}
             handleLogin={this.handleLogin}
         />)
     }

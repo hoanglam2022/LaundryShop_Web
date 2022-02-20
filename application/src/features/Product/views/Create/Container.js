@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import President from './President';
 import {connect} from 'react-redux';
-import {createMatchSelector} from "connected-react-router";
 
 class Container extends Component {
     render() {
+        const {detail} = this.props.product;
         return (
-            <President detail={this.props.product.detail}/>
+            <President/>
         )
-    }
-
-    componentDidMount() {
-
-
     }
 }
 
@@ -23,9 +18,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const matchSelector = createMatchSelector("/product/:username");
     return {
-        match  : matchSelector(state),
         product: state.product,
     }
 }

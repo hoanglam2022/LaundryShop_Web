@@ -36,6 +36,9 @@ function generateUrl(endPoint) {
     return helpers.getEndPointAPI() + endPoint;
 }
 
+/*
+    Apply token
+ */
 function applyToken(config) {
     const state = loadStateFromLocal();
     config      = {};
@@ -48,6 +51,9 @@ function applyToken(config) {
     return config
 }
 
+/*
+    Apply query string to URL
+ */
 function applyQueryString(url, params) {
     const queryString = new URLSearchParams(params).toString();
     url               = url + '?' + queryString;
@@ -55,7 +61,10 @@ function applyQueryString(url, params) {
     return url;
 }
 
-export function fetchPaginate(url, params = {}) {
+/*
+    Fetch data by paginate
+ */
+export function fetchPaginate(url, params = {}, callback = null) {
     const {pagination} = params
     const sort         = params.sortOrder !== undefined ? params.sortOrder : "ascend";
     params             = {
@@ -65,10 +74,13 @@ export function fetchPaginate(url, params = {}) {
     }
 
     return dispatch => {
-        dispatch(apiGet(url, params))
+        dispatch(apiGet(url, params, {}, callback))
     }
 }
 
+/*
+    Get data
+ */
 export function apiGet(endPoint = '', params = {}, config = {}, callback = null) {
     let url = generateUrl(endPoint)
     url     = applyQueryString(url, params);
@@ -77,6 +89,23 @@ export function apiGet(endPoint = '', params = {}, config = {}, callback = null)
     return dispatch => {
         dispatch(pendingAction())
         return axios.get(url, config).then(response => {
+            resolve(dispatch, response, callback)
+        }).catch(reason => {
+            reject(dispatch, reason, callback)
+        });
+    }
+}
+
+/*
+    Post data
+ */
+export function apiPost(endPoint = '', params = {}, config = {}, callback = null) {
+    let url = generateUrl(endPoint)
+    config  = applyToken();
+
+    return dispatch => {
+        dispatch(pendingAction())
+        return axios.post(url, params, config).then(response => {
             resolve(dispatch, response, callback)
         }).catch(reason => {
             reject(dispatch, reason, callback)
@@ -102,13 +131,19 @@ export function post(dispatch, url = '', data = {}, config = {}, callback = null
     });
 }
 
+/*
+    Resolve promise
+ */
 export function resolve(dispatch, response, callback) {
     dispatch(responseAction(response))
     if (typeof callback === "function") {
-        dispatch(callback(dispatch, response.data))
+        dispatch(callback(response.data))
     }
 }
 
+/*
+    Reject promise
+ */
 export function reject(dispatch, reason, callback) {
     const data = {
         payload   : [],
@@ -130,7 +165,7 @@ export function reject(dispatch, reason, callback) {
 
     // Need callback function
     if (typeof callback === "function") {
-        dispatch(callback(dispatch, response.data))
+        dispatch(callback(response.data))
     }
 
     // For case auth
@@ -139,6 +174,9 @@ export function reject(dispatch, reason, callback) {
     }
 }
 
+/*
+    Response action
+ */
 function responseAction(response) {
     const data = response.data
 

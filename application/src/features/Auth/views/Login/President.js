@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom"
-import {Form, Input, Button} from "antd";
+import {Form, Input} from "antd";
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import {AntButton, AntFormItem,} from "../../../../layouts";
-
 
 class President extends Component {
     render() {
@@ -25,7 +24,7 @@ class President extends Component {
                         />
                     </AntFormItem>
                     <AntFormItem
-                        errors={errors.username}
+                        errors={errors.password}
                         name="password"
                     >
                         <Input.Password
@@ -36,8 +35,9 @@ class President extends Component {
                     </AntFormItem>
                     <AntButton type="primary"
                                htmlType="submit"
-                               disabled={this.props.crud.pending}
-                               block={true}>
+                               block={true}
+                               loading={this.props.loading}
+                    >
                         Đăng nhập
                     </AntButton>
                 </Form>

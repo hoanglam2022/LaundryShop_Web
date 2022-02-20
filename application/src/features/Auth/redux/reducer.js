@@ -37,19 +37,19 @@ export function loadStateFromLocal() {
     let stateFromLocal;
     try {
         // Load data from local
-        let data = JSON.parse(localStorage.getItem(ARG_TOKEN));
+        let dataLocal = JSON.parse(localStorage.getItem(ARG_TOKEN));
 
         // Load data auth
-        const {payload, meta, role} = data
+        const {data, meta, role} = dataLocal
 
         stateFromLocal = {
             user: {
-                username    : payload.username,
-                first_name  : payload.first_name,
-                last_name   : payload.last_name,
-                email       : payload.email,
-                phone_number: payload.phone_number,
-                created_user: payload.created_user,
+                username    : data.username,
+                first_name  : data.first_name,
+                last_name   : data.last_name,
+                email       : data.email,
+                phone_number: data.phone_number,
+                created_user: data.created_user,
             },
             meta: {
                 token: meta.token

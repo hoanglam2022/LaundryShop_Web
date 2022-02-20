@@ -146,7 +146,7 @@ export function resolve(dispatch, response, callback) {
  */
 export function reject(dispatch, reason, callback) {
     const data = {
-        payload   : [],
+        data      : [],
         code      : null,
         message   : MESSAGE_SERVER_ERROR,
         errors    : {},
@@ -181,7 +181,7 @@ function responseAction(response) {
     const data = response.data
 
     const payload = {
-        payload   : data.payload !== undefined ? data.payload : [],
+        data      : data.data !== undefined ? data.data : [],
         code      : data.code,
         message   : data.message,
         errors    : data.errors,

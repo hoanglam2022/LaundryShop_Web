@@ -4,8 +4,8 @@ import {
     PRODUCT_FETCH_LOADING,
     PRODUCT_CREATE,
     PRODUCT_CREATE_LOADING,
-    PRODUCT_FIND,
-    PRODUCT_FIND_LOADING,
+    PRODUCT_DETAIL,
+    PRODUCT_DETAIL_LOADING,
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
     PRODUCT_DELETE,
@@ -16,10 +16,11 @@ export function reducer(state = initialState, action) {
     let payload = action.payload;
     switch (action.type) {
         case PRODUCT_FETCH:
+            let data = payload.data !== undefined ? payload.data : [];
             return {
                 ...state,
                 list: {
-                    data      : payload.data,
+                    data      : data.data,
                     pagination: {
                         current : payload.current_page,
                         pageSize: payload.per_page,
@@ -32,7 +33,7 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 list: {
-                    ...state.table,
+                    ...state.list,
                     loading: true,
                 }
             }
@@ -40,51 +41,45 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 create: {
-
-                },
+                    ...state.create,
+                    loading: false,
+                    errors : payload.errors,
+                    data   : payload.data,
+                }
             };
         case PRODUCT_CREATE_LOADING:
             return {
                 ...state,
-                table: {
-                    ...state.table,
+                create: {
+                    ...state.create,
                     loading: true,
                 }
             }
-        case PRODUCT_FIND:
+        case PRODUCT_DETAIL:
             return {
                 ...state,
-                product: payload
             };
-        case PRODUCT_FIND_LOADING:
+        case PRODUCT_DETAIL_LOADING:
             return {
                 ...state,
-                product: {
-                    ...state.table,
-                    loading: true,
-                }
             }
         case PRODUCT_UPDATE:
             return {
                 ...state,
-                product: payload
             };
         case PRODUCT_UPDATE_LOADING:
             return {
                 ...state,
-                product: payload
             };
         case PRODUCT_DELETE:
             return {
                 ...state,
-                product: payload
             };
         case PRODUCT_DELETE_LOADING:
             return {
                 ...state,
-                product: payload
             };
         default:
-            return state;
+            return state
     }
 }

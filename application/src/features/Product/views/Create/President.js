@@ -5,12 +5,13 @@ import {
     AntFormItem,
     AntInput,
     AntInputNumber,
-    AntInputTextArea, FormGroupAction, SelectUnit
+    AntInputTextArea, FormGroupAction, FormGroupActionBack, FormGroupActionSave, SelectUnit
 } from "../../../../layouts";
 
 class President extends Component {
     render() {
-        const {product} = this.props
+        let {data, errors, loading} = this.props.create
+        errors = errors !== undefined ? errors : {};
         return (
             <div className="features feature-product">
                 <AntCard
@@ -18,39 +19,46 @@ class President extends Component {
                     bordered={true}
                 >
                     <AntForm className="form-center"
-                             onFinish={(data => this.props.handleLogin(data))}
                              layout="vertical"
+                             onFinish={(data => this.props.onFinish(data))}
                     >
                         <AntFormItem
-                            initialValue={product}
-                            name="name"
-                            label="Tên sản phẩm"
                             required={true}
+                            label="Tên sản phẩm"
+                            name="name"
+                            errors={errors.name}
                         >
                             <AntInput/>
                         </AntFormItem>
 
                         <AntFormItem
-                            name="price"
-                            label="Giá"
                             required={true}
+                            label="Giá"
+                            name="price"
+                            errors={errors.price}
                         >
                             <AntInputNumber/>
                         </AntFormItem>
                         <AntFormItem
+                            required={true}
+                            label="Đơn vị"
                             name="unit"
-                            label="Đơn vị">
+                            errors={errors.unit}
+                        >
                             <SelectUnit/>
                         </AntFormItem>
                         <AntFormItem
-                            name="description"
                             label="Mô tả"
-                            required={true}
+                            name="description"
+                            errors={errors.unit}
                         >
                             <AntInputTextArea rows={10}/>
                         </AntFormItem>
                         <AntFormItem className="text-center">
-                            <FormGroupAction/>
+                            <FormGroupAction>
+                                <FormGroupActionSave loading={loading}/>
+                                <FormGroupActionBack/>
+                            </FormGroupAction>
                         </AntFormItem>
                     </AntForm>
                 </AntCard>

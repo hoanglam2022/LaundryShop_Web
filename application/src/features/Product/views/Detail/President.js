@@ -14,7 +14,7 @@ class President extends Component {
         return (
             <div className="features feature-product">
                 <AntCard
-                    title="Thêm sản phẩm"
+                    title="Chi tiết sản phẩm"
                     bordered={true}
                 >
                     <AntForm className="form-center"

@@ -16,9 +16,26 @@ const initialState = {
         },
         loading   : false,
     },
-    create: {},
-    detail: {},
-    delete: {},
+    create: {
+        errors : {},
+        data   : {},
+        loading: false,
+    },
+    detail: {
+        errors : {},
+        data   : {},
+        loading: false,
+    },
+    update: {
+        errors : {},
+        data   : {},
+        loading: false,
+    },
+    delete: {
+        errors : {},
+        data   : {},
+        loading: false,
+    },
 };
 
 export default initialState;

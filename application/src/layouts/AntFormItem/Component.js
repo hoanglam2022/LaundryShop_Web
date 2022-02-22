@@ -3,7 +3,7 @@ import {Form} from "antd";
 
 class CustomComponent extends Component {
     render() {
-        const {errors, wrapperCol, name, label, value, required} = this.props
+        const {errors, wrapperCol, name, label, initialValue, required} = this.props
 
         let status = "";
         let help   = "";
@@ -14,7 +14,7 @@ class CustomComponent extends Component {
         return (
             <Form.Item
                 required={required}
-                initialValue={value}
+                initialValue={initialValue}
                 name={name}
                 label={label}
                 wrapperCol={wrapperCol !== undefined ? wrapperCol : null}

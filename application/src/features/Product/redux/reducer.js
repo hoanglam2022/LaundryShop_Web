@@ -8,8 +8,8 @@ import {
     PRODUCT_DETAIL_LOADING,
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
-    PRODUCT_DELETE,
-    PRODUCT_DELETE_LOADING,
+    PRODUCT_REMOVE,
+    PRODUCT_REMOVE_LOADING,
 } from "./constants";
 
 export function reducer(state = initialState, action) {
@@ -58,27 +58,57 @@ export function reducer(state = initialState, action) {
         case PRODUCT_DETAIL:
             return {
                 ...state,
+                detail: {
+                    ...state.detail,
+                    loading: false,
+                    errors : payload.errors,
+                    data   : payload.data,
+                }
             };
         case PRODUCT_DETAIL_LOADING:
             return {
                 ...state,
+                detail: {
+                    ...state.detail,
+                    loading: true,
+                }
             }
         case PRODUCT_UPDATE:
             return {
                 ...state,
+                update: {
+                    ...state.update,
+                    loading: false,
+                    errors : payload.errors,
+                    data   : payload.data,
+                }
             };
         case PRODUCT_UPDATE_LOADING:
             return {
                 ...state,
-            };
-        case PRODUCT_DELETE:
+                update: {
+                    ...state.update,
+                    loading: true,
+                }
+            }
+        case PRODUCT_REMOVE:
             return {
                 ...state,
+                delete: {
+                    ...state.remove,
+                    loading: false,
+                    errors : payload.errors,
+                    data   : payload.data,
+                }
             };
-        case PRODUCT_DELETE_LOADING:
+        case PRODUCT_REMOVE_LOADING:
             return {
                 ...state,
-            };
+                delete: {
+                    ...state.remove,
+                    loading: true,
+                }
+            }
         default:
             return state
     }

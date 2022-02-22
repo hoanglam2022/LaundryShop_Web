@@ -11,15 +11,15 @@ export const pushNotification = (type, message = '', description = '') => {
 };
 
 export const pushMessageSuccess = () => {
-    AntMessage.success('Successfully');
+    AntMessage.success('Thành công.');
 };
 
 export const pushMessageError = () => {
-    AntMessage.error('Sorry, something went wrong.');
+    AntMessage.error('Xin lỗi, có lỗi trong quá trình xử lý.');
 };
 
 export const pushMessageLoading = () => {
-    const hide = AntMessage.loading('Loading...', 0);
+    const hide = AntMessage.loading('Đang xử lý...', 0);
     // Dismiss manually and asynchronously
     setTimeout(hide, 500);
 }

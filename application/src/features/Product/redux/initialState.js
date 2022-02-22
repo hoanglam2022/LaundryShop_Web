@@ -31,7 +31,7 @@ const initialState = {
         data   : {},
         loading: false,
     },
-    delete: {
+    remove: {
         errors : {},
         data   : {},
         loading: false,

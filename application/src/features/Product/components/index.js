@@ -1,1 +1,1 @@
-//export {UserTabs} from './UserTabs'
+export {FormProduct} from './FormProduct'

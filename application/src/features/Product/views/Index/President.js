@@ -8,7 +8,7 @@ const columns = [
         title    : 'ID',
         dataIndex: 'id',
         sorter   : true,
-        render   : id => <Link to={'/products' + id}>{id}</Link>,
+        render   : id => <Link to={'/products/detail/' + id}>{id}</Link>,
         width    : '150px',
         align    : 'center',
     },

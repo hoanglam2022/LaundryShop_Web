@@ -7,10 +7,11 @@ import {
     PRODUCT_DETAIL_LOADING,
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
-    PRODUCT_DELETE,
-    PRODUCT_DELETE_LOADING,
+    PRODUCT_REMOVE,
+    PRODUCT_REMOVE_LOADING,
 } from "./constants";
-import {apiPost, fetchPaginate} from "../../../common/crud/actions";
+import {apiGet, apiPost, CODE_SUCCESS, fetchPaginate} from "../../../common/crud/actions";
+import {pushMessageError, pushMessageSuccess} from "../../../layouts";
 
 export function fetchTableProduct(params) {
     return dispatch => {
@@ -54,6 +55,13 @@ export function createAction(response) {
     };
 }
 
+export function detailProduct(id) {
+    return dispatch => {
+        dispatch(detailActionLoading())
+        dispatch(apiGet('admin/products/' + id, {}, {}, detailAction))
+    };
+}
+
 export function detailAction(response) {
     return {
         type   : PRODUCT_DETAIL,
@@ -61,24 +69,41 @@ export function detailAction(response) {
     };
 }
 
-export function detailLoadingAction(response) {
+export function detailActionLoading() {
     return {
         type   : PRODUCT_DETAIL_LOADING,
         payload: null
     };
 }
 
+export function updateProduct(id, params) {
+    return dispatch => {
+        dispatch(updateActionLoading())
+        dispatch(apiPost('admin/products/' + id, params, {}, updateAction))
+    };
+}
 
 export function updateAction(response) {
+    console.log(response)
+    if (response.code === CODE_SUCCESS){
+        pushMessageSuccess();
+    }
     return {
         type   : PRODUCT_UPDATE,
         payload: response
     };
 }
 
-export function deleteAction(response) {
+export function updateActionLoading() {
     return {
-        type   : PRODUCT_DELETE,
+        type   : PRODUCT_UPDATE_LOADING,
+        payload: null
+    };
+}
+
+export function removeAction(response) {
+    return {
+        type   : PRODUCT_REMOVE,
         payload: response
     };
 }

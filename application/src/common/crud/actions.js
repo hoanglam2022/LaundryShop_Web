@@ -1,6 +1,6 @@
 import axios from "axios";
 import {RESPONSE_ACTION, RESET_ACTION, PENDING_ACTION} from './constants'
-import {clearToken, setTokenAction} from "../../features/Auth/redux/actions";
+import {clearToken} from "../../features/Auth/redux/actions";
 import {loadStateFromLocal} from "../../features/Auth/redux/reducer";
 import helpers from "../../ultis/helpers";
 
@@ -10,7 +10,11 @@ export const CODE_SERVER_ERROR    = 500;
 export const CODE_SUCCESS         = 200;
 export const CODE_UNAUTHENTICATED = 401;
 
-export const MESSAGE_SERVER_ERROR = "Server error";
+export const MESSAGE_BAD_REQUEST     = "Yêu cầu bị lỗi.";
+export const MESSAGE_NOT_FOUND       = "Không tìm thấy.";
+export const MESSAGE_SERVER_ERROR    = "Máy chủ bị lỗi.";
+export const MESSAGE_SUCCESS         = "Thành công.";
+export const MESSAGE_UNAUTHENTICATED = "Phiên đăng nhập bị lỗi hoặc đã hết hạn, mời đăng nhập lại.";
 
 export function reset() {
     return dispatch => {

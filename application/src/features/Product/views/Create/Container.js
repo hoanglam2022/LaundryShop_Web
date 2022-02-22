@@ -6,16 +6,20 @@ import {createProduct} from "../../redux/actions";
 class Container extends Component {
     onFinish = (data) => {
         this.props.createProduct({
-            username: data.username !== undefined ? data.username : '',
-            password: data.password !== undefined ? data.password : '',
+            name       : data.name !== undefined ? data.name : '',
+            price      : data.price !== undefined ? data.price : '',
+            unit       : data.unit !== undefined ? data.unit : '',
+            description: data.description !== undefined ? data.description : '',
         })
     }
 
     render() {
+        const {create} = this.props.product;
         return (
             <President
-                create={this.props.product.create}
                 onFinish={this.onFinish}
+                errors={create.errors}
+                createLoading={create.loading}
             />
         )
     }

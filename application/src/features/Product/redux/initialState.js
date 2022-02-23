@@ -25,16 +25,18 @@ const initialState = {
         errors : {},
         data   : {},
         loading: false,
-    },
-    update: {
-        errors : {},
-        data   : {},
-        loading: false,
-    },
-    remove: {
-        errors : {},
-        data   : {},
-        loading: false,
+        id     : null,
+        isFound: true,
+
+        update: {
+            modalVisible: false,
+            loading     : false,
+        },
+
+        delete: {
+            modalVisible: false,
+            loading     : false,
+        },
     },
 };
 

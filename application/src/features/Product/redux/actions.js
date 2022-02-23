@@ -7,8 +7,8 @@ import {
     PRODUCT_DETAIL_LOADING,
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
-    PRODUCT_REMOVE,
-    PRODUCT_REMOVE_LOADING,
+    PRODUCT_DELETE,
+    PRODUCT_DELETE_LOADING, PRODUCT_UPDATE_CONFIRM, PRODUCT_UPDATE_CANCEL,
 } from "./constants";
 import {apiGet, apiPost, CODE_SUCCESS, fetchPaginate} from "../../../common/crud/actions";
 import {pushMessageError, pushMessageSuccess} from "../../../layouts";
@@ -84,7 +84,6 @@ export function updateProduct(id, params) {
 }
 
 export function updateAction(response) {
-    console.log(response)
     if (response.code === CODE_SUCCESS){
         pushMessageSuccess();
     }
@@ -103,7 +102,21 @@ export function updateActionLoading() {
 
 export function removeAction(response) {
     return {
-        type   : PRODUCT_REMOVE,
+        type   : PRODUCT_DELETE,
         payload: response
+    };
+}
+
+export function updateConfirm(data){
+    return {
+        type   : PRODUCT_UPDATE_CONFIRM,
+        payload: data
+    };
+}
+
+export function updateCancel(){
+    return {
+        type   : PRODUCT_UPDATE_CANCEL,
+        payload: null
     };
 }

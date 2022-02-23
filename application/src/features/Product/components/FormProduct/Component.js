@@ -12,94 +12,94 @@ import {
 
 class CustomComponent extends Component {
     render() {
+        const masters = ["Chiếc", "Kiện", "Kg", "Tạ", "Tấn",]
+
         let {
                 formLoading,
-                dataDefault,
+                data,
                 errors,
                 createLoading,
                 updateLoading,
                 removeLoading,
+                isDetail
             } = this.props
 
-        const masters    = ["Chiếc", "Kiện", "Kg", "Tạ", "Tấn",]
-        errors           = errors !== undefined ? errors : {};
-        dataDefault      = dataDefault !== undefined ? dataDefault : {};
-        const {id}       = dataDefault;
-        formLoading      = formLoading === true;
-        const form_title = id !== null && id !== undefined ? "Chi tiết sản phẩm" : "Thêm sản phẩm";
+        errors = errors !== undefined ? errors : {};
+        data   = data !== undefined ? data : {};
 
+        const {name, price, unit, description} = data;
+
+        formLoading      = formLoading === true;
+        const form_title = isDetail === true ? "Chi tiết sản phẩm" : "Thêm sản phẩm";
         return (
             <AntCard
                 title={form_title}
                 bordered={true}
+                loading={formLoading}
             >
-                {
-                    formLoading ? <Loading/>
-                        :
-                        <AntForm className="form-center"
-                                 layout="vertical"
-                                 onFinish={(data => this.props.onFinish(data))}
-                        >
-                            <AntFormItem
-                                required={true}
-                                label="Tên sản phẩm"
-                                name="name"
-                                errors={errors.name}
-                                initialValue={dataDefault.name}
-                            >
-                                <AntInput/>
-                            </AntFormItem>
-                            <AntFormItem
-                                required={true}
-                                label="Giá"
-                                name="price"
-                                errors={errors.price}
-                                initialValue={dataDefault.price}
-                            >
-                                <AntInputNumber/>
-                            </AntFormItem>
-                            <AntFormItem
-                                required={true}
-                                label="Đơn vị"
-                                name="unit"
-                                errors={errors.unit}
-                            >
-                                <Select defaultValue={dataDefault.unit} placeholder="Chọn đơn vị">
-                                    {
-                                        masters.map((value, index, array) => {
-                                            return (
-                                                <Select.Option value={value} key={index}>{value}</Select.Option>
-                                            )
-                                        })
-                                    }
-                                </Select>
-                            </AntFormItem>
-                            <AntFormItem
-                                label="Mô tả"
-                                name="description"
-                                errors={errors.description}
-                                initialValue={dataDefault.description}
-                            >
-                                <AntInputTextArea rows={10}/>
-                            </AntFormItem>
-                            <AntFormItem className="text-center">
-                                {id
-                                    ?
-                                    <FormGroupAction>
-                                        <FormGroupActionUpdate loading={updateLoading}/>
-                                        <FormGroupActionDelete loading={removeLoading}/>
-                                        <FormGroupActionBack/>
-                                    </FormGroupAction>
-                                    :
-                                    <FormGroupAction>
-                                        <FormGroupActionSave loading={createLoading}/>
-                                        <FormGroupActionBack/>
-                                    </FormGroupAction>
-                                }
+                <AntForm
+                    className="form-center"
+                    layout="vertical"
+                    onFinish={(data => this.props.onFinish(data))}
+                    initialValues={{name: name, price: price, unit: unit, description: description}}
+                >
+                    <AntFormItem
+                        required={true}
+                        label="Tên sản phẩm"
+                        name="name"
+                        value={name}
+                        errors={errors.name}
+                    >
+                        <AntInput/>
+                    </AntFormItem>
+                    <AntFormItem
+                        required={true}
+                        label="Giá (VNĐ)"
+                        name="price"
+                        errors={errors.price}
+                    >
+                        <AntInputNumber/>
+                    </AntFormItem>
+                    <AntFormItem
+                        required={true}
+                        label="Đơn vị"
+                        name="unit"
+                        errors={errors.unit}
+                    >
+                        <Select placeholder="Chọn đơn vị">
+                            {
+                                masters.map((value, index, array) => {
+                                    return (
+                                        <Select.Option value={value} key={index}>{value}</Select.Option>
+                                    )
+                                })
+                            }
+                        </Select>
+                    </AntFormItem>
+                    <AntFormItem
+                        label="Mô tả"
+                        name="description"
+                        errors={errors.description}
+                    >
+                        <AntInputTextArea rows={10}/>
+                    </AntFormItem>
+                    <AntFormItem className="text-center">
+                        {isDetail
+                            ?
+                            <FormGroupAction>
+                                <FormGroupActionUpdate loading={updateLoading}/>
+                                <FormGroupActionDelete loading={removeLoading}/>
+                                <FormGroupActionBack/>
+                            </FormGroupAction>
+                            :
+                            <FormGroupAction>
+                                <FormGroupActionSave loading={createLoading}/>
+                                <FormGroupActionBack/>
+                            </FormGroupAction>
+                        }
 
-                            </AntFormItem>
-                        </AntForm>
-                }
+                    </AntFormItem>
+                </AntForm>
             </AntCard>
         )
     }

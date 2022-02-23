@@ -5,6 +5,7 @@ class President extends Component {
     render() {
         let code = this.props.code !== undefined ? this.props.code : "500"
         let message;
+        code = code.toString();
         switch (code) {
             case "403":
                 message = "Sorry, you are not authorized to access this page."

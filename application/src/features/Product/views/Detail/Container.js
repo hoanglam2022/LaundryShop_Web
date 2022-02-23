@@ -2,80 +2,46 @@ import React, {Component} from 'react';
 import President from './President';
 import {connect} from 'react-redux';
 import {createMatchSelector} from "connected-react-router";
-import {updateProduct, detailProduct} from "../../redux/actions";
+import {updateProduct, detailProduct, updateConfirm, updateCancel} from "../../redux/actions";
+import {ErrorPage} from "../../../Exceptions";
 
 class Container extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data       : {
-                name       : '',
-                price      : '',
-                unit       : '',
-                description: '',
-            },
-            updateModal: false,
-            deleteModal: false,
-            id: null,
-        }
-    }
-
     onFinish = (data) => {
-        this.setState({
-            ...this.state,
-            data       : {
-                ...this.state.data,
-                name       : data.name !== undefined ? data.name : '',
-                price      : data.price !== undefined ? data.price : '',
-                unit       : data.unit !== undefined ? data.unit : '',
-                description: data.description !== undefined ? data.description : '',
-            },
-            updateModal: true,
-        })
-
+        this.props.updateConfirm(data)
     }
 
-    onOkUpdate = () => {
-        this.setState({
-            ...this.state,
-            updateModal: false,
-        }, this.props.updateProduct(this.state.id, this.state.data))
-    }
-
-    onCancelUpdate = () => {
-        this.setState({
-            ...this.state,
-            updateModal: false,
-        })
+    updateProduct = () => {
+        this.props.updateProduct(this.props.product.detail.id, this.props.product.detail.data);
     }
 
     render() {
-        const {detail, update, remove} = this.props.product;
+        let {detail} = this.props.product;
+        if (detail.isFound === false) {
+            return (
+                <ErrorPage code={404}/>
+            )
+        }
+
         return (
             <President
-                detail={detail}
-                update={update}
+                isDetail={true}
+                data={detail.data}
                 formLoading={detail.loading}
-                dataDefault={detail.data}
-                errors={update.errors}
-                updateLoading={update.loading}
-                removeLoading={remove.loading}
+                errors={detail.errors}
+                updateLoading={detail.update.loading}
+                updateModalVisible={detail.update.modalVisible}
+                deleteLoading={detail.delete.loading}
 
                 onFinish={this.onFinish}
-
-                onOkUpdate={this.onOkUpdate}
-                onCancelUpdate={this.onCancelUpdate}
-                updateModal={this.state.updateModal}
+                onUpdate={this.updateProduct}
+                onUpdateCancel={this.props.updateCancel}
             />
         )
     }
 
     componentDidMount() {
         const {id} = this.props.match.params;
-        this.setState({
-            ...this.state,
-            id: id
-        }, this.props.detailProduct(id))
+        this.props.detailProduct(id)
     }
 }
 
@@ -86,6 +52,12 @@ function mapDispatchToProps(dispatch) {
         },
         detailProduct: (id) => {
             dispatch(detailProduct(id));
+        },
+        updateConfirm: (data) => {
+            dispatch(updateConfirm(data));
+        },
+        updateCancel : () => {
+            dispatch(updateCancel());
         },
     };
 }

@@ -8,8 +8,8 @@ import {
     PRODUCT_DETAIL_LOADING,
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
-    PRODUCT_REMOVE,
-    PRODUCT_REMOVE_LOADING,
+    PRODUCT_DELETE,
+    PRODUCT_DELETE_LOADING, PRODUCT_UPDATE_CONFIRM, PRODUCT_UPDATE_CANCEL,
 } from "./constants";
 
 export function reducer(state = initialState, action) {
@@ -58,12 +58,14 @@ export function reducer(state = initialState, action) {
         case PRODUCT_DETAIL:
             return {
                 ...state,
-                detail: {
+                detail : {
                     ...state.detail,
                     loading: false,
                     errors : payload.errors,
                     data   : payload.data,
-                }
+                    id     : payload.data.id,
+                    isFound: payload.data.id !== undefined && payload.data.id !== null,
+                },
             };
         case PRODUCT_DETAIL_LOADING:
             return {
@@ -73,25 +75,62 @@ export function reducer(state = initialState, action) {
                     loading: true,
                 }
             }
+        case PRODUCT_UPDATE_CONFIRM:
+            return {
+                ...state,
+                detail: {
+                    ...state.detail,
+                    data  : {
+                        ...state.detail.data,
+                        ...payload
+                    },
+                    update: {
+                        ...state.detail.update,
+                        modalVisible: true,
+                        loading     : false,
+                    }
+                }
+            };
+        case PRODUCT_UPDATE_CANCEL:
+            return {
+                ...state,
+                detail: {
+                    ...state.detail,
+                    update: {
+                        ...state.detail.update,
+                        modalVisible: false,
+                        loading     : false,
+                    }
+                }
+            };
         case PRODUCT_UPDATE:
             return {
                 ...state,
-                update: {
-                    ...state.update,
+                detail: {
+                    ...state.detail,
                     loading: false,
                     errors : payload.errors,
                     data   : payload.data,
+                    update : {
+                        ...state.detail.update,
+                        modalVisible: false,
+                        loading     : false,
+                    }
                 }
             };
         case PRODUCT_UPDATE_LOADING:
             return {
                 ...state,
-                update: {
-                    ...state.update,
-                    loading: true,
+                detail: {
+                    ...state.detail,
+                    update: {
+                        ...state.detail.update,
+                        modalVisible: false,
+                        loading     : true,
+                    }
                 }
             }
-        case PRODUCT_REMOVE:
+        case PRODUCT_DELETE:
             return {
                 ...state,
                 delete: {
@@ -101,7 +140,7 @@ export function reducer(state = initialState, action) {
                     data   : payload.data,
                 }
             };
-        case PRODUCT_REMOVE_LOADING:
+        case PRODUCT_DELETE_LOADING:
             return {
                 ...state,
                 delete: {

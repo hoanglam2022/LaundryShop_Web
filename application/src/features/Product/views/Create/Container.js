@@ -13,10 +13,13 @@ class Container extends Component {
         })
     }
 
+    formRef = React.createRef();
+
     render() {
         const {create} = this.props.product;
         return (
             <President
+                formRef={this.formRef}
                 onFinish={this.onFinish}
                 errors={create.errors}
                 createLoading={create.loading}

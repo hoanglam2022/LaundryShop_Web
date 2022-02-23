@@ -10,9 +10,9 @@ class President extends Component {
                     {...this.props}
                 />
                 <ModalConfirm
-                    onOk={this.props.onOkUpdate}
-                    onCancel={this.props.onCancelUpdate}
-                    visible={this.props.updateModal}
+                    onOk={this.props.onUpdate}
+                    onCancel={this.props.onUpdateCancel}
+                    visible={this.props.updateModalVisible}
                     message="Cập nhật thông tin sản phẩm ?"
                 />
             </div>

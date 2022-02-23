@@ -4,16 +4,16 @@ import {Result, Button} from 'antd';
 
 class CustomComponent extends Component {
     render() {
-        const code = this.props.code
+        const {code, message} = this.props
         return (
             <Result
                 status={code}
                 title={code}
-                subTitle="Sorry, you are not authorized to access this page."
+                subTitle={message}
                 extra={
                     <Button type="primary">
                         <Link to='/'>
-                            Back Home
+                            Quay lại trang chủ
                         </Link>
                     </Button>
                 }

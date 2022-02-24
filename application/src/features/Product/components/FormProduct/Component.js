@@ -7,7 +7,7 @@ import {
     AntInput,
     AntInputNumber,
     AntInputTextArea,
-    FormGroupAction, FormGroupActionBack, FormGroupActionDelete, FormGroupActionSave, FormGroupActionUpdate, Loading,
+    FormGroupAction, FormGroupActionBack, FormGroupActionDelete, FormGroupActionSave, FormGroupActionUpdate,
 } from "../../../../layouts";
 
 class CustomComponent extends Component {
@@ -20,7 +20,8 @@ class CustomComponent extends Component {
                 errors,
                 createLoading,
                 updateLoading,
-                removeLoading,
+                deleteLoading,
+                onShowConfirmDelete,
                 isDetail
             } = this.props
 
@@ -88,7 +89,10 @@ class CustomComponent extends Component {
                             ?
                             <FormGroupAction>
                                 <FormGroupActionUpdate loading={updateLoading}/>
-                                <FormGroupActionDelete loading={removeLoading}/>
+                                <FormGroupActionDelete
+                                    htmlType="button"
+                                    onClick={onShowConfirmDelete}
+                                    loading={deleteLoading}/>
                                 <FormGroupActionBack/>
                             </FormGroupAction>
                             :

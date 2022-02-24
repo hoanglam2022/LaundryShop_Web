@@ -32,11 +32,13 @@ const initialState = {
             modalVisible: false,
             loading     : false,
         },
+    },
 
-        delete: {
-            modalVisible: false,
-            loading     : false,
-        },
+    delete: {
+        errors      : {},
+        modalVisible: false,
+        loading     : false,
+        isDeleted   : false,
     },
 };
 

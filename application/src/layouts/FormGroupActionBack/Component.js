@@ -7,7 +7,7 @@ class CustomComponent extends Component {
         return (
             <div className="action-item">
                 <div className="action-item">
-                    <Link to={'/'}>
+                    <Link to="/products">
                         <AntButton {...this.props}>
                             Quay lại
                         </AntButton>

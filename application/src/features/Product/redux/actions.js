@@ -8,9 +8,10 @@ import {
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
     PRODUCT_DELETE,
-    PRODUCT_DELETE_LOADING, PRODUCT_UPDATE_CONFIRM, PRODUCT_UPDATE_CANCEL,
+    PRODUCT_DELETE_LOADING,
+    PRODUCT_DELETE_VISIBLE_CONFIRM,
 } from "./constants";
-import {apiGet, apiPost, CODE_SUCCESS, fetchPaginate} from "../../../common/crud/actions";
+import {apiDelete, apiGet, apiPost, CODE_SUCCESS, fetchPaginate} from "../../../common/crud/actions";
 import {pushMessageError, pushMessageSuccess} from "../../../layouts";
 
 export function fetchTableProduct(params) {
@@ -84,7 +85,7 @@ export function updateProduct(id, params) {
 }
 
 export function updateAction(response) {
-    if (response.code === CODE_SUCCESS){
+    if (response.code === CODE_SUCCESS) {
         pushMessageSuccess();
     }
     return {
@@ -100,23 +101,30 @@ export function updateActionLoading() {
     };
 }
 
-export function removeAction(response) {
+export function deleteAction(response) {
     return {
         type   : PRODUCT_DELETE,
         payload: response
     };
 }
 
-export function updateConfirm(data){
+export function deleteActionLoading() {
     return {
-        type   : PRODUCT_UPDATE_CONFIRM,
-        payload: data
+        type   : PRODUCT_DELETE_LOADING,
+        payload: null
     };
 }
 
-export function updateCancel(){
+export function visibleConfirmDelete(flag) {
     return {
-        type   : PRODUCT_UPDATE_CANCEL,
-        payload: null
+        type   : PRODUCT_DELETE_VISIBLE_CONFIRM,
+        payload: flag
+    };
+}
+
+export function deleteProduct(id) {
+    return dispatch => {
+        dispatch(deleteActionLoading())
+        dispatch(apiDelete('admin/products/' + id, {}, deleteAction))
     };
 }

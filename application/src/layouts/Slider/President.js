@@ -23,6 +23,10 @@ class President extends Component {
                     selectDefault = 'products-create'
                     break;
                 }
+                if (pathname.indexOf('/products/detail') !== -1) {
+                    selectDefault = 'products'
+                    break;
+                }
                 selectDefault = 'products-index'
                 break;
             }

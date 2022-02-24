@@ -117,6 +117,23 @@ export function apiPost(endPoint = '', params = {}, config = {}, callback = null
     }
 }
 
+/*
+    Post data
+ */
+export function apiDelete(endPoint = '', config = {}, callback = null) {
+    let url = generateUrl(endPoint)
+    config  = applyToken();
+
+    return dispatch => {
+        dispatch(pendingAction())
+        return axios.delete(url, config).then(response => {
+            resolve(dispatch, response, callback)
+        }).catch(reason => {
+            reject(dispatch, reason, callback)
+        });
+    }
+}
+
 export function get(dispatch, url = '', data = {}, config = {}, callback = null) {
     dispatch(pendingAction())
     return axios.get(url, config).then(response => {

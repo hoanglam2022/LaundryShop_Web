@@ -9,8 +9,10 @@ import {
     PRODUCT_UPDATE,
     PRODUCT_UPDATE_LOADING,
     PRODUCT_DELETE,
-    PRODUCT_DELETE_LOADING, PRODUCT_UPDATE_CONFIRM, PRODUCT_UPDATE_CANCEL,
+    PRODUCT_DELETE_LOADING,
+    PRODUCT_DELETE_VISIBLE_CONFIRM,
 } from "./constants";
+import {LOCATION_CHANGE} from "connected-react-router";
 
 export function reducer(state = initialState, action) {
     let payload = action.payload;
@@ -42,9 +44,9 @@ export function reducer(state = initialState, action) {
                 ...state,
                 create: {
                     ...state.create,
-                    loading: false,
                     errors : payload.errors,
                     data   : payload.data,
+                    loading: false,
                 }
             };
         case PRODUCT_CREATE_LOADING:
@@ -52,13 +54,15 @@ export function reducer(state = initialState, action) {
                 ...state,
                 create: {
                     ...state.create,
+                    errors : {},
+                    data   : {},
                     loading: true,
                 }
             }
         case PRODUCT_DETAIL:
             return {
                 ...state,
-                detail : {
+                detail: {
                     ...state.detail,
                     loading: false,
                     errors : payload.errors,
@@ -73,36 +77,12 @@ export function reducer(state = initialState, action) {
                 detail: {
                     ...state.detail,
                     loading: true,
+                    errors : {},
+                    data   : {},
+                    id     : null,
+                    isFound: true,
                 }
             }
-        case PRODUCT_UPDATE_CONFIRM:
-            return {
-                ...state,
-                detail: {
-                    ...state.detail,
-                    data  : {
-                        ...state.detail.data,
-                        ...payload
-                    },
-                    update: {
-                        ...state.detail.update,
-                        modalVisible: true,
-                        loading     : false,
-                    }
-                }
-            };
-        case PRODUCT_UPDATE_CANCEL:
-            return {
-                ...state,
-                detail: {
-                    ...state.detail,
-                    update: {
-                        ...state.detail.update,
-                        modalVisible: false,
-                        loading     : false,
-                    }
-                }
-            };
         case PRODUCT_UPDATE:
             return {
                 ...state,
@@ -134,18 +114,42 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 delete: {
-                    ...state.remove,
-                    loading: false,
-                    errors : payload.errors,
-                    data   : payload.data,
+                    ...state.delete,
+                    errors      : payload.errors,
+                    modalVisible: false,
+                    loading     : false,
+                    isDeleted   : payload.errors.length === 0,
                 }
             };
         case PRODUCT_DELETE_LOADING:
             return {
                 ...state,
                 delete: {
-                    ...state.remove,
-                    loading: true,
+                    ...state.delete,
+                    errors      : [],
+                    modalVisible: false,
+                    loading     : true,
+                    isDeleted   : false,
+                }
+            }
+
+        case PRODUCT_DELETE_VISIBLE_CONFIRM:{
+            return {
+                ...state,
+                delete: {
+                    ...state.delete,
+                    errors      : [],
+                    modalVisible: payload,
+                    loading     : false,
+                    isDeleted   : false,
+                }
+            }
+        }
+        case LOCATION_CHANGE:
+            return {
+                ...state,
+                delete: {
+                    ...initialState.delete,
                 }
             }
         default:

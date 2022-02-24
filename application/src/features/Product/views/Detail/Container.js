@@ -2,20 +2,28 @@ import React, {Component} from 'react';
 import President from './President';
 import {connect} from 'react-redux';
 import {createMatchSelector} from "connected-react-router";
-import {updateProduct, detailProduct, updateConfirm, updateCancel} from "../../redux/actions";
+import {updateProduct, detailProduct, deleteProduct, visibleConfirmDelete} from "../../redux/actions";
 import {ErrorPage} from "../../../Exceptions";
+import {Redirect} from "react-router-dom";
 
 class Container extends Component {
     onFinish = (data) => {
-        this.props.updateConfirm(data)
+        this.props.updateProduct(this.props.product.detail.id, data)
     }
 
-    updateProduct = () => {
-        this.props.updateProduct(this.props.product.detail.id, this.props.product.detail.data);
+    onOkDelete = () => {
+        this.props.deleteProduct(this.props.product.detail.id)
     }
 
     render() {
         let {detail} = this.props.product;
+
+        if (this.props.product.delete.isDeleted === true) {
+            return (
+                <Redirect to="/products"/>
+            )
+        }
+
         if (detail.isFound === false) {
             return (
                 <ErrorPage code={404}/>
@@ -28,13 +36,17 @@ class Container extends Component {
                 data={detail.data}
                 formLoading={detail.loading}
                 errors={detail.errors}
-                updateLoading={detail.update.loading}
-                updateModalVisible={detail.update.modalVisible}
-                deleteLoading={detail.delete.loading}
 
+                updateLoading={detail.update.loading}
                 onFinish={this.onFinish}
                 onUpdate={this.updateProduct}
                 onUpdateCancel={this.props.updateCancel}
+
+                deleteModalVisible={this.props.product.delete.modalVisible}
+                deleteLoading={this.props.product.delete.loading}
+                onShowConfirmDelete={this.props.showConfirmDelete}
+                onCancelDelete={this.props.hideConfirmDelete}
+                onOkDelete={this.onOkDelete}
             />
         )
     }
@@ -47,17 +59,20 @@ class Container extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateProduct: (id, data) => {
+        updateProduct    : (id, data) => {
             dispatch(updateProduct(id, data));
         },
-        detailProduct: (id) => {
+        detailProduct    : (id) => {
             dispatch(detailProduct(id));
         },
-        updateConfirm: (data) => {
-            dispatch(updateConfirm(data));
+        showConfirmDelete: () => {
+            dispatch(visibleConfirmDelete(true));
         },
-        updateCancel : () => {
-            dispatch(updateCancel());
+        hideConfirmDelete: () => {
+            dispatch(visibleConfirmDelete(false));
+        },
+        deleteProduct    : (id) => {
+            dispatch(deleteProduct(id));
         },
     };
 }

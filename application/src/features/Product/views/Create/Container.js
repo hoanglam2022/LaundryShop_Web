@@ -2,27 +2,27 @@ import React, {Component} from 'react';
 import President from './President';
 import {connect} from 'react-redux';
 import {createProduct} from "../../redux/actions";
+import {Redirect} from "react-router-dom";
 
 class Container extends Component {
     onFinish = (data) => {
-        this.props.createProduct({
-            name       : data.name !== undefined ? data.name : '',
-            price      : data.price !== undefined ? data.price : '',
-            unit       : data.unit !== undefined ? data.unit : '',
-            description: data.description !== undefined ? data.description : '',
-        })
+        this.props.createProduct(data)
     }
-
-    formRef = React.createRef();
 
     render() {
         const {create} = this.props.product;
+
+        if (create.data.id !== undefined) {
+            return (
+                <Redirect to={'/products/detail/' + create.data.id}/>
+            )
+        }
+
         return (
             <President
-                formRef={this.formRef}
-                onFinish={this.onFinish}
                 errors={create.errors}
                 createLoading={create.loading}
+                onFinish={this.onFinish}
             />
         )
     }

@@ -1,1 +1,1 @@
-export {Example} from './views/Example'
+export {ExampleFeature} from './views/Example'

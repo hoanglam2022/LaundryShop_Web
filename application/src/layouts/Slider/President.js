@@ -48,10 +48,10 @@ class President extends Component {
         return (
             <Layout.Sider className="left-slider">
                 <Menu
+                    className="left-slider-menu"
                     mode="inline"
                     defaultSelectedKeys={[selectDefault]}
                     defaultOpenKeys={[openDefault]}
-                    style={{height: '100%', borderRight: 0}}
                 >
                     <Menu.Item icon={<DashboardOutlined/>} key="dashboard">
                         Trang chủ

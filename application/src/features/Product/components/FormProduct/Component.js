@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Select} from 'antd';
+import {Select, Input} from 'antd';
 import {
     AntCard,
     AntForm,
@@ -39,7 +39,7 @@ class CustomComponent extends Component {
                 loading={formLoading}
             >
                 <AntForm
-                    className="form-center"
+                    className="form-center form-product"
                     layout="vertical"
                     onFinish={(data => this.props.onFinish(data))}
                     initialValues={{name: name, price: price, unit: unit, description: description}}
@@ -54,20 +54,22 @@ class CustomComponent extends Component {
                         <AntInput/>
                     </AntFormItem>
                     <AntFormItem
+                        className="form-product-inline"
                         required={true}
                         label="Giá (VNĐ)"
                         name="price"
                         errors={errors.price}
                     >
-                        <AntInputNumber/>
+                        <AntInputNumber addonAfter={"VNĐ"} className="form-product-child"/>
                     </AntFormItem>
                     <AntFormItem
+                        className="form-product-inline form-product-unit"
                         required={true}
                         label="Đơn vị"
                         name="unit"
                         errors={errors.unit}
                     >
-                        <Select placeholder="Chọn đơn vị">
+                        <Select placeholder="Chọn đơn vị" className="form-product-child" >
                             {
                                 masters.map((value, index, array) => {
                                     return (
@@ -77,6 +79,7 @@ class CustomComponent extends Component {
                             }
                         </Select>
                     </AntFormItem>
+
                     <AntFormItem
                         label="Mô tả"
                         name="description"

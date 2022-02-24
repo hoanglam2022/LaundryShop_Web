@@ -1,3 +1,1 @@
-import Container from './Container';
-
-export default Container;
+export {default as Slider} from './Container'

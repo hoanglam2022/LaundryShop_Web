@@ -1,1 +1,1 @@
-export {default as Example} from './Container'
+export {default as ExampleFeature} from './Container'

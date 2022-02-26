@@ -3,7 +3,7 @@ import {
     AntCard,
     AntForm,
     AntFormItem,
-    AntInput,
+    AntInput, AntInputTextArea,
     FormGroupAction, FormGroupActionBack, FormGroupActionDelete, FormGroupActionSave, FormGroupActionUpdate,
 } from "../../../../layouts";
 
@@ -23,7 +23,7 @@ class CustomComponent extends Component {
         errors = errors !== undefined ? errors : {};
         data   = data !== undefined ? data : {};
 
-        const {username, password, password_confirm, first_name, last_name, email, phone_number} = data;
+        const {username, password, password_confirm, first_name, last_name, email, phone_number, address} = data;
 
         formLoading      = formLoading === true;
         const form_title = isDetail === true ? "Chi tiết khách hàng" : "Thêm khách hàng";
@@ -45,6 +45,7 @@ class CustomComponent extends Component {
                         last_name       : last_name,
                         email           : email,
                         phone_number    : phone_number,
+                        address         : address,
                     }}
                 >
                     <AntFormItem
@@ -102,6 +103,13 @@ class CustomComponent extends Component {
                         errors={errors.phone_number}
                     >
                         <AntInput/>
+                    </AntFormItem>
+                    <AntFormItem
+                        label="Địa chỉ"
+                        name="address"
+                        errors={errors.address}
+                    >
+                        <AntInputTextArea rows={10}/>
                     </AntFormItem>
                     <AntFormItem className="text-center">
                         {isDetail

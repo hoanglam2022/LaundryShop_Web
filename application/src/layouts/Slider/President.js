@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
-import {AuditOutlined, AppstoreOutlined, DashboardOutlined} from '@ant-design/icons';
+import {AuditOutlined, AppstoreOutlined, DashboardOutlined, UserOutlined} from '@ant-design/icons';
 import {Link} from "react-router-dom";
 
 class President extends Component {
@@ -71,6 +71,16 @@ class President extends Component {
                         Trang chủ
                         <Link to="/"/>
                     </Menu.Item>
+                    <Menu.SubMenu key="customers" icon={<UserOutlined />} title="Khách hàng">
+                        <Menu.Item key="customers-index">
+                            Danh sách khách hàng
+                            <Link to="/customers"/>
+                        </Menu.Item>
+                        <Menu.Item key="customers-create">
+                            Thêm khách hàng
+                            <Link to="/customers/create"/>
+                        </Menu.Item>
+                    </Menu.SubMenu>
                     <Menu.SubMenu key="products" icon={<AppstoreOutlined/>} title="Sản phẩm">
                         <Menu.Item key="products-index">
                             Danh sách sản phẩm
@@ -79,16 +89,6 @@ class President extends Component {
                         <Menu.Item key="products-create">
                             Thêm sản phẩm
                             <Link to="/products/create"/>
-                        </Menu.Item>
-                    </Menu.SubMenu>
-                    <Menu.SubMenu key="customers" icon={<AuditOutlined/>} title="Khách hàng">
-                        <Menu.Item key="customers-index">
-                            Danh sách khách hàng
-                            <Link to="/customers"/>
-                        </Menu.Item>
-                        <Menu.Item key="customers-create">
-                            Thêm khách hàng
-                            <Link to="/customers/create"/>
                         </Menu.Item>
                     </Menu.SubMenu>
                     <Menu.SubMenu key="orders" icon={<AuditOutlined/>} title="Đơn hàng">

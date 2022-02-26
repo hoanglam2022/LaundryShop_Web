@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Table} from 'antd';
 import {Link} from "react-router-dom";
-import helpers from "../../../../ultis/helpers";
 
 const columns = [
     {
@@ -29,6 +28,12 @@ const columns = [
     {
         title    : 'Số điện thoại',
         dataIndex: 'phone_number',
+        width    : '150px',
+    },
+
+    {
+        title    : 'Địa chỉ',
+        dataIndex: 'address',
     },
 ];
 

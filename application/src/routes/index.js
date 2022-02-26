@@ -19,6 +19,12 @@ import {
     Detail as CustomerDetail,
 } from '../features/Customer'
 
+import {
+    Index as ServiceIndex,
+    Create as ServiceCreate,
+    Detail as ServiceDetail,
+} from '../features/Service'
+
 class AllRoutes extends Component {
     render() {
         return (
@@ -27,13 +33,18 @@ class AllRoutes extends Component {
                 <PublicRoute path="/register" layout='Auth'><Register/></PublicRoute>
 
                 <PrivateRoute path="/" exact={true}><HomePage/></PrivateRoute>
-                <PrivateRoute path="/products" exact={true}><ProductIndex/></PrivateRoute>
-                <PrivateRoute path="/products/create"><ProductCreate/></PrivateRoute>
-                <PrivateRoute path="/products/detail/:id" exact={true}><ProductDetail/></PrivateRoute>
 
                 <PrivateRoute path="/customers" exact={true}><CustomerIndex/></PrivateRoute>
                 <PrivateRoute path="/customers/create"><CustomerCreate/></PrivateRoute>
                 <PrivateRoute path="/customers/detail/:id" exact={true}><CustomerDetail/></PrivateRoute>
+
+                <PrivateRoute path="/products" exact={true}><ProductIndex/></PrivateRoute>
+                <PrivateRoute path="/products/create"><ProductCreate/></PrivateRoute>
+                <PrivateRoute path="/products/detail/:id" exact={true}><ProductDetail/></PrivateRoute>
+
+                <PrivateRoute path="/services" exact={true}><ServiceIndex/></PrivateRoute>
+                <PrivateRoute path="/services/create"><ServiceCreate/></PrivateRoute>
+                <PrivateRoute path="/services/detail/:id" exact={true}><ServiceDetail/></PrivateRoute>
 
                 <PublicRoute path="*"><ErrorPage code={404}/></PublicRoute>
             </Switch>

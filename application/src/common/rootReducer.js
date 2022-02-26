@@ -6,6 +6,7 @@ import {reducer as AuthReducer} from "../features/Auth/redux/reducer"
 import {reducer as HomeReducer} from "../features/Home/redux/reducer"
 import {reducer as ProductReducer} from "../features/Product/redux/reducer"
 import {reducer as CustomerReducer} from "../features/Customer/redux/reducer"
+import {reducer as ServiceReducer} from "../features/Service/redux/reducer"
 
 const reducerMap = {
     router  : connectRouter(historyCommon),
@@ -14,6 +15,7 @@ const reducerMap = {
     home    : HomeReducer,
     product : ProductReducer,
     customer: CustomerReducer,
+    service : ServiceReducer,
 };
 
 export default combineReducers(reducerMap);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
-import {AuditOutlined, AppstoreOutlined, DashboardOutlined, UserOutlined} from '@ant-design/icons';
+import {AuditOutlined, AppstoreOutlined, DashboardOutlined, UserOutlined, ClearOutlined} from '@ant-design/icons';
 import {Link} from "react-router-dom";
 
 class President extends Component {
@@ -42,6 +42,20 @@ class President extends Component {
                     break;
                 }
                 selectDefault = 'products-index'
+                break;
+            }
+
+            if (pathname.indexOf('/services') !== -1) {
+                openDefault = 'services'
+                if (pathname.indexOf('/services/create') !== -1) {
+                    selectDefault = 'services-create'
+                    break;
+                }
+                if (pathname.indexOf('/services/detail') !== -1) {
+                    selectDefault = 'services'
+                    break;
+                }
+                selectDefault = 'services-index'
                 break;
             }
 
@@ -89,6 +103,16 @@ class President extends Component {
                         <Menu.Item key="products-create">
                             Thêm sản phẩm
                             <Link to="/products/create"/>
+                        </Menu.Item>
+                    </Menu.SubMenu>
+                    <Menu.SubMenu key="services" icon={<ClearOutlined />} title="Dịch vụ">
+                        <Menu.Item key="services-index">
+                            Danh sách dịch vụ
+                            <Link to="/services"/>
+                        </Menu.Item>
+                        <Menu.Item key="services-create">
+                            Thêm dịch vụ
+                            <Link to="/services/create"/>
                         </Menu.Item>
                     </Menu.SubMenu>
                     <Menu.SubMenu key="orders" icon={<AuditOutlined/>} title="Đơn hàng">

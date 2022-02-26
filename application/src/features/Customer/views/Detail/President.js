@@ -13,7 +13,7 @@ class President extends Component {
                     onOk={this.props.onOkDelete}
                     onCancel={this.props.onCancelDelete}
                     visible={this.props.deleteModalVisible}
-                    message="Chắc chắn xoá sản phẩm ?"
+                    message="Chắc chắn xoá khách hàng ?"
                 />
             </div>
         )

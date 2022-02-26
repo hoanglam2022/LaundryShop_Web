@@ -17,6 +17,20 @@ class President extends Component {
                 break;
             }
 
+            if (pathname.indexOf('/customers') !== -1) {
+                openDefault = 'customers'
+                if (pathname.indexOf('/customers/create') !== -1) {
+                    selectDefault = 'customers-create'
+                    break;
+                }
+                if (pathname.indexOf('/customers/detail') !== -1) {
+                    selectDefault = 'customers'
+                    break;
+                }
+                selectDefault = 'customers-index'
+                break;
+            }
+
             if (pathname.indexOf('/products') !== -1) {
                 openDefault = 'products'
                 if (pathname.indexOf('/products/create') !== -1) {
@@ -65,6 +79,16 @@ class President extends Component {
                         <Menu.Item key="products-create">
                             Thêm sản phẩm
                             <Link to="/products/create"/>
+                        </Menu.Item>
+                    </Menu.SubMenu>
+                    <Menu.SubMenu key="customers" icon={<AuditOutlined/>} title="Khách hàng">
+                        <Menu.Item key="customers-index">
+                            Danh sách khách hàng
+                            <Link to="/customers"/>
+                        </Menu.Item>
+                        <Menu.Item key="customers-create">
+                            Thêm khách hàng
+                            <Link to="/customers/create"/>
                         </Menu.Item>
                     </Menu.SubMenu>
                     <Menu.SubMenu key="orders" icon={<AuditOutlined/>} title="Đơn hàng">

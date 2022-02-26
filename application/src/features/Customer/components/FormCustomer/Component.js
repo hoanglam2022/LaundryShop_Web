@@ -1,19 +1,14 @@
 import React, {Component} from 'react';
-import {Select, Input} from 'antd';
 import {
     AntCard,
     AntForm,
     AntFormItem,
     AntInput,
-    AntInputNumber,
-    AntInputTextArea,
     FormGroupAction, FormGroupActionBack, FormGroupActionDelete, FormGroupActionSave, FormGroupActionUpdate,
 } from "../../../../layouts";
 
 class CustomComponent extends Component {
     render() {
-        const masters = ["Chiếc", "Kiện", "Kg", "Tạ", "Tấn",]
-
         let {
                 formLoading,
                 data,
@@ -28,10 +23,10 @@ class CustomComponent extends Component {
         errors = errors !== undefined ? errors : {};
         data   = data !== undefined ? data : {};
 
-        const {name, price, unit, description} = data;
+        const {username, password, password_confirm, first_name, last_name, email, phone_number} = data;
 
         formLoading      = formLoading === true;
-        const form_title = isDetail === true ? "Chi tiết sản phẩm" : "Thêm sản phẩm";
+        const form_title = isDetail === true ? "Chi tiết khách hàng" : "Thêm khách hàng";
         return (
             <AntCard
                 title={form_title}
@@ -42,50 +37,71 @@ class CustomComponent extends Component {
                     className="form-center form-customer"
                     layout="vertical"
                     onFinish={(data => this.props.onFinish(data))}
-                    initialValues={{name: name, price: price, unit: unit, description: description}}
+                    initialValues={{
+                        username        : username,
+                        password        : password,
+                        password_confirm: password_confirm,
+                        first_name      : first_name,
+                        last_name       : last_name,
+                        email           : email,
+                        phone_number    : phone_number,
+                    }}
                 >
                     <AntFormItem
                         required={true}
-                        label="Tên sản phẩm"
-                        name="name"
-                        value={name}
-                        errors={errors.name}
+                        label="Tên đăng nhập"
+                        name="username"
+                        errors={errors.username}
                     >
                         <AntInput/>
                     </AntFormItem>
                     <AntFormItem
+                        label="Mật khẩu"
+                        name="password"
+                        errors={errors.username}
+                    >
+                        <AntInput type="password"/>
+                    </AntFormItem>
+                    <AntFormItem
+                        label="Xác nhận mật khẩu"
+                        name="password_confirm"
+                        errors={errors.password_confirm}
+                    >
+                        <AntInput type="password"/>
+                    </AntFormItem>
+                    <AntFormItem
                         className="form-customer-inline"
                         required={true}
-                        label="Giá (VNĐ)"
-                        name="price"
-                        errors={errors.price}
+                        label="Họ"
+                        name="first_name"
+                        errors={errors.first_name}
                     >
-                        <AntInputNumber addonAfter={"VNĐ"} className="form-customer-child"/>
+                        <AntInput className="form-customer-child"/>
                     </AntFormItem>
                     <AntFormItem
-                        className="form-customer-inline form-customer-unit"
+                        className="form-customer-inline form-customer-right"
                         required={true}
-                        label="Đơn vị"
-                        name="unit"
-                        errors={errors.unit}
+                        label="Tên"
+                        name="last_name"
+                        errors={errors.last_name}
                     >
-                        <Select placeholder="Chọn đơn vị" className="form-customer-child" >
-                            {
-                                masters.map((value, index, array) => {
-                                    return (
-                                        <Select.Option value={value} key={index}>{value}</Select.Option>
-                                    )
-                                })
-                            }
-                        </Select>
+                        <AntInput className="form-customer-child"/>
                     </AntFormItem>
-
                     <AntFormItem
-                        label="Mô tả"
-                        name="description"
-                        errors={errors.description}
+                        required={true}
+                        label="Email"
+                        name="email"
+                        errors={errors.email}
                     >
-                        <AntInputTextArea rows={10}/>
+                        <AntInput/>
+                    </AntFormItem>
+                    <AntFormItem
+                        required={true}
+                        label="Số điện thoại"
+                        name="phone_number"
+                        errors={errors.phone_number}
+                    >
+                        <AntInput/>
                     </AntFormItem>
                     <AntFormItem className="text-center">
                         {isDetail

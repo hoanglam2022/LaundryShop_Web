@@ -13,20 +13,22 @@ const columns = [
         align    : 'center',
     },
     {
-        title    : 'Tên sản phẩm',
-        dataIndex: 'name',
+        title    : 'Tên tài khoản',
+        dataIndex: 'username',
         sorter   : true,
-        width    : '40%',
     },
     {
-        title    : 'Đơn vị',
-        dataIndex: 'unit',
+        title    : 'Họ tên',
+        dataIndex: 'first_name',
+        render   : (idx, item) => item.first_name + ' ' + item.last_name,
     },
     {
-        title    : 'Đơn giá',
-        dataIndex: 'price',
-        sorter   : true,
-        render   : price => helpers.formatCash(price),
+        title    : 'Email',
+        dataIndex: 'email',
+    },
+    {
+        title    : 'Số điện thoại',
+        dataIndex: 'phone_number',
     },
 ];
 

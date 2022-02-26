@@ -13,6 +13,12 @@ import {
     Detail as ProductDetail,
 } from '../features/Product'
 
+import {
+    Index as CustomerIndex,
+    Create as CustomerCreate,
+    Detail as CustomerDetail,
+} from '../features/Customer'
+
 class AllRoutes extends Component {
     render() {
         return (
@@ -24,6 +30,10 @@ class AllRoutes extends Component {
                 <PrivateRoute path="/products" exact={true}><ProductIndex/></PrivateRoute>
                 <PrivateRoute path="/products/create"><ProductCreate/></PrivateRoute>
                 <PrivateRoute path="/products/detail/:id" exact={true}><ProductDetail/></PrivateRoute>
+
+                <PrivateRoute path="/customers" exact={true}><CustomerIndex/></PrivateRoute>
+                <PrivateRoute path="/customers/create"><CustomerCreate/></PrivateRoute>
+                <PrivateRoute path="/customers/detail/:id" exact={true}><CustomerDetail/></PrivateRoute>
 
                 <PublicRoute path="*"><ErrorPage code={404}/></PublicRoute>
             </Switch>

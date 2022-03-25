@@ -17,20 +17,6 @@ class President extends Component {
                 break;
             }
 
-            if (pathname.indexOf('/customers') !== -1) {
-                openDefault = 'customers'
-                if (pathname.indexOf('/customers/create') !== -1) {
-                    selectDefault = 'customers-create'
-                    break;
-                }
-                if (pathname.indexOf('/customers/detail') !== -1) {
-                    selectDefault = 'customers'
-                    break;
-                }
-                selectDefault = 'customers-index'
-                break;
-            }
-
             if (pathname.indexOf('/products') !== -1) {
                 openDefault = 'products'
                 if (pathname.indexOf('/products/create') !== -1) {
@@ -45,6 +31,20 @@ class President extends Component {
                 break;
             }
 
+            if (pathname.indexOf('/customer-service') !== -1) {
+                openDefault = 'customer-service'
+                if (pathname.indexOf('/customer-service/create') !== -1) {
+                    selectDefault = 'customer-service-create'
+                    break;
+                }
+                if (pathname.indexOf('/customer-service/detail') !== -1) {
+                    selectDefault = 'customer-service'
+                    break;
+                }
+                selectDefault = 'customer-service-index'
+                break;
+            }
+
             if (pathname.indexOf('/services') !== -1) {
                 openDefault = 'services'
                 if (pathname.indexOf('/services/create') !== -1) {
@@ -56,6 +56,20 @@ class President extends Component {
                     break;
                 }
                 selectDefault = 'services-index'
+                break;
+            }
+
+            if (pathname.indexOf('/customers') !== -1) {
+                openDefault = 'customers'
+                if (pathname.indexOf('/customers/create') !== -1) {
+                    selectDefault = 'customers-create'
+                    break;
+                }
+                if (pathname.indexOf('/customers/detail') !== -1) {
+                    selectDefault = 'customers'
+                    break;
+                }
+                selectDefault = 'customers-index'
                 break;
             }
 
@@ -85,6 +99,16 @@ class President extends Component {
                         Trang chủ
                         <Link to="/"/>
                     </Menu.Item>
+                    <Menu.SubMenu key="customer-service" icon={<ClearOutlined />} title="Bảng giá dịch vụ">
+                        <Menu.Item key="customer-service-index">
+                            Tất cả bảng giá
+                            <Link to="/customer-service"/>
+                        </Menu.Item>
+                        <Menu.Item key="customer-service-create">
+                            Thêm bảng giá
+                            <Link to="/customer-service/create"/>
+                        </Menu.Item>
+                    </Menu.SubMenu>
                     <Menu.SubMenu key="customers" icon={<UserOutlined />} title="Khách hàng">
                         <Menu.Item key="customers-index">
                             Danh sách khách hàng

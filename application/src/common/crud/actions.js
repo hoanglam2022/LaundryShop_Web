@@ -179,7 +179,7 @@ export function reject(dispatch, reason, callback) {
         data: {
             ...data
         },
-        ...reason.response
+       /* ...reason.response*/
     }
 
     dispatch(responseAction(response))

@@ -25,6 +25,12 @@ import {
     Detail as ServiceDetail,
 } from '../features/Service'
 
+import {
+    Index as CustomerServiceIndex,
+    Create as CustomerServiceCreate,
+    Detail as CustomerServiceDetail,
+} from '../features/Service'
+
 class AllRoutes extends Component {
     render() {
         return (
@@ -45,6 +51,10 @@ class AllRoutes extends Component {
                 <PrivateRoute path="/services" exact={true}><ServiceIndex/></PrivateRoute>
                 <PrivateRoute path="/services/create"><ServiceCreate/></PrivateRoute>
                 <PrivateRoute path="/services/detail/:id" exact={true}><ServiceDetail/></PrivateRoute>
+
+                <PrivateRoute path="/customer-service" exact={true}><CustomerServiceIndex/></PrivateRoute>
+                <PrivateRoute path="/customer-service/create"><CustomerServiceCreate/></PrivateRoute>
+                <PrivateRoute path="/customer-service/detail/:id" exact={true}><CustomerServiceDetail/></PrivateRoute>
 
                 <PublicRoute path="*"><ErrorPage code={404}/></PublicRoute>
             </Switch>

@@ -15,7 +15,7 @@ class Container extends Component {
 
     render() {
         return (
-            <President handleTableChanges={this.handleTableChange} {...this.props.service.list} />
+            <President handleTableChanges={this.handleTableChange} {...this.props.customerService.list} />
         )
     }
 

@@ -29,7 +29,7 @@ import {
     Index as CustomerServiceIndex,
     Create as CustomerServiceCreate,
     Detail as CustomerServiceDetail,
-} from '../features/Service'
+} from '../features/CustomerService'
 
 class AllRoutes extends Component {
     render() {

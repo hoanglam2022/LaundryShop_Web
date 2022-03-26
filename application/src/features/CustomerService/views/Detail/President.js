@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {FormService} from "../../components/FormService";
+import {FormCustomerService} from "../../components/FormCustomerService";
 import {ModalConfirm} from "../../../../layouts";
 
 class President extends Component {
     render() {
         return (
             <div className="features feature-service">
-                <FormService
+                <FormCustomerService
                     {...this.props}
                 />
                 <ModalConfirm

@@ -30,6 +30,12 @@ export function reducer(state = initialState, action) {
                     },
                     loading   : false,
                 },
+                create: {
+                    ...state.create,
+                    errors : {},
+                    data   : {},
+                    loading: false,
+                }
             };
         case SERVICE_FETCH_LOADING:
             return {
@@ -70,6 +76,12 @@ export function reducer(state = initialState, action) {
                     id     : payload.data.id,
                     isFound: payload.data.id !== undefined && payload.data.id !== null,
                 },
+                create: {
+                    ...state.create,
+                    errors : {},
+                    data   : {},
+                    loading: false,
+                }
             };
         case SERVICE_DETAIL_LOADING:
             return {

@@ -10,7 +10,7 @@ class Container extends Component {
     }
 
     render() {
-        const {create} = this.props.service;
+        const {create} = this.props.customerService;
 
         if (create.data.id !== undefined) {
             return (

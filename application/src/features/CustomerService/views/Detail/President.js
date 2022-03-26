@@ -5,7 +5,7 @@ import {ModalConfirm} from "../../../../layouts";
 class President extends Component {
     render() {
         return (
-            <div className="features feature-service">
+            <div className="features feature-customer-service">
                 <FormCustomerService
                     {...this.props}
                 />

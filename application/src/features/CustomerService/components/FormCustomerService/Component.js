@@ -24,17 +24,15 @@ const sights = {
     Shanghai: ['Oriental Pearl', 'The Bund'],
 };
 
-const Demo = () => {
-    const [form] = Form.useForm();
+const form = {};
 
-    const onFinish = values => {
-        console.log('Received values of form:', values);
-    };
+const onFinish = values => {
+    console.log('Received values of form:', values);
+};
 
-    const handleChange = () => {
-        form.setFieldsValue({ sights: [] });
-    };
-}
+const handleChange = () => {
+    form.setFieldsValue({ sights: [] });
+};
 
 class CustomComponent extends Component {
     render() {

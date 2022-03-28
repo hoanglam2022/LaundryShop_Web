@@ -8,13 +8,15 @@ import {
 
 export function reducer(state = initialState, action) {
     let payload = action.payload;
-    let data    = payload.data !== undefined ? payload.data : [];
+    let data    = [];
     switch (action.type) {
         case MASTER_DATA_CUSTOMERS:
+            data = payload.data !== undefined ? payload.data : [];
             return {
                 ...state,
                 customers: {
-                    data   : data.data,
+                    ...state.customers,
+                    data   : data,
                     loading: false,
                 },
             };
@@ -22,14 +24,17 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 customers: {
+                    ...state.customers,
                     loading: true,
                 },
             }
         case MASTER_DATA_SERVICES:
+            data = payload.data !== undefined ? payload.data : [];
             return {
                 ...state,
                 services: {
-                    data   : data.data,
+                    ...state.customers,
+                    data   : data,
                     loading: false,
                 },
             };
@@ -37,6 +42,7 @@ export function reducer(state = initialState, action) {
             return {
                 ...state,
                 services: {
+                    ...state.customers,
                     loading: true,
                 },
             };

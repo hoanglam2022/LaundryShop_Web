@@ -41,9 +41,9 @@ class President extends Component {
                 currentCustomer,
                 currentCustomerLoading,
                 price,
-                pendingFetchUsers,
-                onChange,
+                onChangeCustomer,
                 customers,
+                customersLoading,
                 onFinish,
                 pendingTransactionCreate
             } = this.props;
@@ -71,13 +71,13 @@ class President extends Component {
                             >
                                 <Form.Item>
                                     <Select
-                                        loading={pendingFetchUsers}
+                                        loading={customersLoading}
                                         size="large"
                                         showSearch
                                         style={{width: '100%'}}
                                         placeholder="Select a user"
                                         optionFilterProp="children"
-                                        onChange={onChange}
+                                        onChange={onChangeCustomer}
                                         filterOption={(input, option) =>
                                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                         }
@@ -85,7 +85,7 @@ class President extends Component {
                                         {
                                             customers.map((customer, key) => {
                                                 return (<Option key={key}
-                                                                value={customer.id}>{customer.full_name}</Option>)
+                                                                value={customer.id}>{customer.first_name + ' ' + customer.last_name}</Option>)
                                             })
                                         }
                                     </Select>

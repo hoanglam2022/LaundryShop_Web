@@ -3,6 +3,7 @@ import President from './President';
 import {connect} from 'react-redux';
 import {fetchTableCustomerService} from "../../redux/actions";
 import {detailCustomer} from "../../../Customer/redux/actions";
+import {getCustomers} from "../../../MasterData/redux/actions";
 
 class Container extends Component {
     handleTableChange = (pagination, filters, sorter) => {
@@ -14,11 +15,18 @@ class Container extends Component {
         });
     };
 
+    onChangeCustomer = (value) => {
+        this.props.detailCustomer(value)
+    };
+
     render() {
-        let {detail} = this.props.customer;
+        let {detail}    = this.props.customer;
+        let {customers} = this.props.masterData;
         return (
             <President
-                customers={[]}
+                customers={customers.data}
+                customersLoading={customers.loading}
+                onChangeCustomer={this.onChangeCustomer}
                 currentCustomer={detail.data}
                 currentCustomerLoading={detail.loading}
                 handleTableChanges={this.handleTableChange}
@@ -29,7 +37,7 @@ class Container extends Component {
 
     componentDidMount() {
         this.props.fetchTableCustomerService({});
-        this.props.detailCustomer(1);
+        this.props.getCustomers();
     }
 }
 
@@ -41,13 +49,17 @@ function mapDispatchToProps(dispatch) {
         detailCustomer           : (id) => {
             dispatch(detailCustomer(id));
         },
+        getCustomers             : (id) => {
+            dispatch(getCustomers(id));
+        },
     };
 }
 
 function mapStateToProps(state) {
     return {
-        customerService: state.customerService,
         customer       : state.customer,
+        customerService: state.customerService,
+        masterData     : state.masterData,
     }
 }
 

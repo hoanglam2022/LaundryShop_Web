@@ -4,6 +4,7 @@ import {Loading} from "../../../../layouts/Loading";
 import {Avatar, Card} from "antd";
 import img_user from "../../../../images/users/user.png";
 import {DataEmpty} from "../../../../layouts"
+import _ from "lodash";
 
 class CustomComponent extends Component {
     render() {
@@ -18,7 +19,7 @@ class CustomComponent extends Component {
                 {
                     loading ? <Loading/> :
                         (
-                            customer === null ? <DataEmpty/> :
+                            _.isEmpty(customer) ? <DataEmpty/> :
                                 <div className="user-data-wrapper">
                                     <div className="user-data avatar-wrapper text-center">
                                         <Avatar

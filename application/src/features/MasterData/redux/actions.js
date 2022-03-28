@@ -9,7 +9,7 @@ import {apiGet} from "../../../common/crud";
 export function getCustomers() {
     return dispatch => {
         dispatch(getCustomersActionLoading())
-        dispatch(apiGet('master-data/customers', {}, getCustomersAction))
+        dispatch(apiGet('master-data/customers', {}, {}, getCustomersAction))
     };
 }
 
@@ -30,7 +30,7 @@ export function getCustomersAction(response) {
 export function getServices() {
     return dispatch => {
         dispatch(getServicesActionLoading())
-        dispatch(apiGet('master-data/services', {}, getServicesAction))
+        dispatch(apiGet('master-data/services', {}, {}, getServicesAction))
     };
 }
 
